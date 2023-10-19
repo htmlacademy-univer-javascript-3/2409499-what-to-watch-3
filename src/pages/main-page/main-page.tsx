@@ -1,4 +1,5 @@
 import FilmCard from '../../components/film-card/film-card';
+import { Helmet } from 'react-helmet-async';
 
 type MainPageProps = {
   filmName: string;
@@ -9,6 +10,9 @@ type MainPageProps = {
 function MainPage({ filmName, genre, filmYear }: MainPageProps): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>Главная страница</title>
+      </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />

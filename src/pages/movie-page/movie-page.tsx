@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function MoviePage(): JSX.Element {
   return (
@@ -16,11 +18,11 @@ function MoviePage(): JSX.Element {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to={AppRoute.Main} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <ul className="user-block">
@@ -116,7 +118,7 @@ function MoviePage(): JSX.Element {
                 <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+                <Link className="small-film-card__link" to={AppRoute.Film}>Fantastic Beasts: The Crimes of Grindelwald</Link>
               </h3>
             </article>
 
@@ -125,7 +127,7 @@ function MoviePage(): JSX.Element {
                 <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
+                <Link className="small-film-card__link" to={AppRoute.Film}>Bohemian Rhapsody</Link>
               </h3>
             </article>
 
@@ -134,7 +136,7 @@ function MoviePage(): JSX.Element {
                 <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
+                <Link className="small-film-card__link" to={AppRoute.Film}>Macbeth</Link>
               </h3>
             </article>
 
@@ -143,7 +145,7 @@ function MoviePage(): JSX.Element {
                 <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
+                <Link className="small-film-card__link" to={AppRoute.Film}>Aviator</Link>
               </h3>
             </article>
           </div>
@@ -151,11 +153,11 @@ function MoviePage(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to={AppRoute.Main} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

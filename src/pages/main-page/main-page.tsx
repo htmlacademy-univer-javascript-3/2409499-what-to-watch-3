@@ -1,13 +1,14 @@
-import FilmCard from '../../components/film-card/film-card';
 import { Helmet } from 'react-helmet-async';
+import { Film, films } from '../../mocks/films';
+import { Detail } from '../../mocks/details';
+import FilmsList from '../../components/films-list/films-list';
 
-type MainPageProps = {
-  filmName: string;
-  genre: string;
-  filmYear: number;
+export type MainPageProps = {
+  film: Film;
+  details: Detail;
 };
 
-function MainPage({ filmName, genre, filmYear }: MainPageProps): JSX.Element {
+function MainPage({ film, details }: MainPageProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -15,7 +16,7 @@ function MainPage({ filmName, genre, filmYear }: MainPageProps): JSX.Element {
       </Helmet>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={film.backgroundImage} alt={film.filmName} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -48,10 +49,10 @@ function MainPage({ filmName, genre, filmYear }: MainPageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{film.filmName}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{filmYear}</span>
+                <span className="film-card__genre">{details.genre}</span>
+                <span className="film-card__year">{details.filmYear}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -112,26 +113,7 @@ function MainPage({ filmName, genre, filmYear }: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard filmName="Fantastic Beasts: The Crimes of Grindelwald" imageSource="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" />
-            <FilmCard filmName="Bohemian Rhapsody" imageSource="img/bohemian-rhapsody.jpg" />
-            <FilmCard filmName="Macbeth" imageSource="img/macbeth.jpg" />
-            <FilmCard filmName="Aviator" imageSource="img/aviator.jpg" />
-            <FilmCard filmName="We need to talk about Kevin" imageSource="img/we-need-to-talk-about-kevin.jpg" />
-            <FilmCard filmName="What We Do in the Shadows" imageSource="img/what-we-do-in-the-shadows.jpg" />
-            <FilmCard filmName="Revenant" imageSource="img/revenant.jpg" />
-            <FilmCard filmName="Johnny English" imageSource="img/johnny-english.jpg" />
-            <FilmCard filmName="Shutter Island" imageSource="img/shutter-island.jpg" />
-            <FilmCard filmName="Pulp Fiction" imageSource="img/pulp-fiction.jpg" />
-            <FilmCard filmName="No Country for Old Men" imageSource="img/no-country-for-old-men.jpg" />
-            <FilmCard filmName="Snatch" imageSource="img/snatch.jpg" />
-            <FilmCard filmName="Moonrise Kingdom" imageSource="img/moonrise-kingdom.jpg" />
-            <FilmCard filmName="Seven Years in Tibet" imageSource="img/seven-years-in-tibet.jpg" />
-            <FilmCard filmName="Midnight Special" imageSource="img/midnight-special.jpg" />
-            <FilmCard filmName="War of the Worlds" imageSource="img/war-of-the-worlds.jpg" />
-            <FilmCard filmName="Dardjeeling Limited" imageSource="img/dardjeeling-limited.jpg" />
-            <FilmCard filmName="Orlando" imageSource="img/orlando.jpg" />
-            <FilmCard filmName="Mindhunter" imageSource="img/mindhunter.jpg" />
-            <FilmCard filmName="Midnight Special" imageSource="img/midnight-special.jpg" />
+            <FilmsList films={films}/>
           </div>
 
           <div className="catalog__more">

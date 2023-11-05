@@ -1,13 +1,22 @@
 import { Helmet } from 'react-helmet-async';
+import { Film } from '../../mocks/films';
+import { useParams } from 'react-router-dom';
 
-function Player(): JSX.Element {
+type PlayerProps = {
+  films: Film[];
+}
+
+function Player({films}: PlayerProps): JSX.Element {
+  const {id} = useParams();
+  const film = films.find((item) => item.id === id) ?? films[0];
+
   return (
     <>
       <Helmet>
         <title>Плеер</title>
       </Helmet>
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+        <video src={film.videoSrc} className="player__video" poster={film.image}></video>
 
         <button type="button" className="player__exit">Exit</button>
 

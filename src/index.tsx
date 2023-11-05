@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { Setting } from './const';
+import { films } from './mocks/films';
+import { details } from './mocks/details';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,9 +11,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      filmName={Setting.FilmName}
-      genre={Setting.Genre}
-      filmYear={Setting.FilmYear}
+      mainProps={{
+        film: films[0],
+        details: details[0]
+      }}
+      films={films}
     />
   </React.StrictMode>
 );

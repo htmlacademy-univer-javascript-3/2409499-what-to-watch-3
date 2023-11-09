@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Film, films } from '../../mocks/films';
-import { Detail } from '../../mocks/details';
+import { Detail } from '../../mocks/films';
 import FilmsList from '../../components/films-list/films-list';
 
 export type MainPageProps = {

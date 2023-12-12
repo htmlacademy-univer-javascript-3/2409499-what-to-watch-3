@@ -113,7 +113,7 @@ export const films: Film[] = [
     backgroundImage: 'img/macbeth.jpg',
     details: {
       filmYear: 2014,
-      genre: 'Drama',
+      genre: 'Horror',
       ratingScore: 8.9,
       ratingLevel: 'Very good',
       ratingCount: '240 ratings',
@@ -139,7 +139,7 @@ export const films: Film[] = [
     backgroundImage: 'img/aviator.jpg',
     details: {
       filmYear: 2014,
-      genre: 'Drama',
+      genre: 'Horror',
       ratingScore: 8.9,
       ratingLevel: 'Very good',
       ratingCount: '240 ratings',
@@ -165,7 +165,7 @@ export const films: Film[] = [
     backgroundImage: 'img/we-need-to-talk-about-kevin.jpg',
     details: {
       filmYear: 2014,
-      genre: 'Drama',
+      genre: 'Thriller',
       ratingScore: 8.9,
       ratingLevel: 'Very good',
       ratingCount: '240 ratings',
@@ -191,7 +191,7 @@ export const films: Film[] = [
     backgroundImage: 'img/what-we-do-in-the-shadows.jpg',
     details: {
       filmYear: 2014,
-      genre: 'Drama',
+      genre: 'Comedy',
       ratingScore: 8.9,
       ratingLevel: 'Very good',
       ratingCount: '240 ratings',
@@ -217,7 +217,7 @@ export const films: Film[] = [
     backgroundImage: 'img/revenant.jpg',
     details: {
       filmYear: 2014,
-      genre: 'Drama',
+      genre: 'Comedy',
       ratingScore: 8.9,
       ratingLevel: 'Very good',
       ratingCount: '240 ratings',

@@ -6,7 +6,8 @@ import GenreList from '../../components/genre-list/genre-list';
 import { useAppSelector } from '../../hooks/hooks';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getFilms } from '../../store/action';
+import { getFilms, setFilmsCount } from '../../store/action';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 export type MainPageProps = {
   film: Film;
@@ -16,8 +17,10 @@ export type MainPageProps = {
 function MainPage({ film, details }: MainPageProps): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
   const dispatch = useDispatch();
+  const filmsCount = useAppSelector((state) => state.filmsCount);
 
   useEffect(() => {
+    dispatch(setFilmsCount(8));
     dispatch(getFilms());
   }, [currentGenre, dispatch]);
 
@@ -92,13 +95,9 @@ function MainPage({ film, details }: MainPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <GenreList films={films} activeGenre=''/>
-          <FilmsList films={filteredFilms}/>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmsList films={filteredFilms.slice(0, filmsCount)}/>
+          {filteredFilms.length > filmsCount && <ShowMoreButton />}
         </section>
 
         <footer className="page-footer">

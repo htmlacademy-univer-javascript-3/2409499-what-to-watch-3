@@ -235,5 +235,187 @@ export const films: Film[] = [
         seconds: 55
       }
     }
+  }, {
+    id: '8',
+    filmName: 'Revenant 2',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '9',
+    filmName: 'Revenant 3',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '10',
+    filmName: 'Revenant 4',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '11',
+    filmName: 'Revenant 5',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '12',
+    filmName: 'Revenant 6',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '13',
+    filmName: 'Revenant 7',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
+  }, {
+    id: '14',
+    filmName: 'Revenant 8',
+    videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    image: 'img/revenant.jpg',
+    backgroundImage: 'img/revenant.jpg',
+    details: {
+      filmYear: 2014,
+      genre: 'Comedy',
+      ratingScore: 8.9,
+      ratingLevel: 'Very good',
+      ratingCount: '240 ratings',
+      director: 'Wes Anderson',
+      starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan',
+        'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+      description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes).
+      Zero, a junior lobby boy, becomes Gustave&aposs friend and protege.\nGustave prides himself on providing first-class
+      service to the hotel&aposs guests, including satisfying the sexual needs of the many
+      elderly women who stay there. When one of Gustave&aposs lovers dies mysteriously, Gustave finds himself
+      the recipient of a priceless painting and the chief suspect in her murder.`,
+      duration: {
+        hours: 1,
+        minutes: 39,
+        seconds: 55
+      }
+    }
   }
 ];

@@ -1,4 +1,4 @@
-import { Film } from '../../mocks/films';
+import { Film } from '../../types/types';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { VideoPlayer } from '../video-player/video-player';
 import { Link } from 'react-router-dom';
@@ -27,11 +27,11 @@ function FilmCard({ film, onMouseEnter, onMouseLeave, isHovered }: FilmProps): J
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="small-film-card__image">
         {active ?
-          <VideoPlayer src={film.videoSrc} poster={film.image} muted autoPlay width={280} height={175} /> :
-          <img src={film.image} width="280" height="175" alt={film.filmName} />}
+          <VideoPlayer src={film.videoLink} poster={film.posterImage} muted autoPlay width={280} height={175} /> :
+          <img src={film.previewImage} width="280" height="175" alt={film.name} />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={AppRoute.Film}>{film.filmName}</Link>
+        <Link className="small-film-card__link" to={AppRoute.Film}>{film.name}</Link>
       </h3>
     </article>
   );

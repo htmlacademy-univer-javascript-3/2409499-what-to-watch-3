@@ -1,15 +1,12 @@
 import { Helmet } from 'react-helmet-async';
-import { Film } from '../../mocks/films';
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AddReviewForm } from '../../components/add-review-form/add-review-form';
+import { useAppSelector } from '../../hooks/hooks';
 
-type AddReviewProps = {
-  films: Film[];
-}
-
-function AddReview({films}: AddReviewProps): JSX.Element {
+function AddReview(): JSX.Element {
   const {id} = useParams();
+  const films = useAppSelector((state) => state.films);
   const film = films.find((item) => item.id === id) ?? films[0];
 
   return (
@@ -20,7 +17,7 @@ function AddReview({films}: AddReviewProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.filmName} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -37,7 +34,7 @@ function AddReview({films}: AddReviewProps): JSX.Element {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={AppRoute.Film} className="breadcrumbs__link">{film.filmName}</Link>
+                  <Link to={AppRoute.Film} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -58,7 +55,7 @@ function AddReview({films}: AddReviewProps): JSX.Element {
           </header>
 
           <div className="film-card__poster film-card__poster--small">
-            <img src={film.image} alt={film.filmName} width="218" height="327" />
+            <img src={film.posterImage} alt={film.name} width="218" height="327" />
           </div>
         </div>
 

@@ -1,6 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { Film, films } from '../../mocks/films';
-import { Detail } from '../../mocks/films';
 import FilmsList from '../../components/films-list/films-list';
 import GenreList from '../../components/genre-list/genre-list';
 import { useAppSelector } from '../../hooks/hooks';
@@ -8,32 +6,34 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getFilms, setFilmsCount } from '../../store/action';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import Spinner from '../../components/spinner/spinner';
+import { Promo } from '../../types/types';
 
 export type MainPageProps = {
-  film: Film;
-  details: Detail;
+  promoFilm: Promo;
 };
 
-function MainPage({ film, details }: MainPageProps): JSX.Element {
+function MainPage({promoFilm}: MainPageProps): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
   const dispatch = useDispatch();
   const filmsCount = useAppSelector((state) => state.filmsCount);
+  const films = useAppSelector((state) => state.films);
+  const filteredFilms = useAppSelector((state) => state.filteredFilms);
 
   useEffect(() => {
     dispatch(setFilmsCount(8));
     dispatch(getFilms());
-  }, [currentGenre, dispatch]);
-
-  const filteredFilms = useAppSelector((state) => state.films);
+  }, [currentGenre, films, dispatch]);
 
   return (
     <>
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
+      <Spinner/>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.filmName} />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -66,10 +66,10 @@ function MainPage({ film, details }: MainPageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.filmName}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{details.genre}</span>
-                <span className="film-card__year">{details.filmYear}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -95,7 +95,7 @@ function MainPage({ film, details }: MainPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList films={films} activeGenre=''/>
+          <GenreList activeGenre='All genres'/>
           <FilmsList films={filteredFilms.slice(0, filmsCount)}/>
           {filteredFilms.length > filmsCount && <ShowMoreButton />}
         </section>

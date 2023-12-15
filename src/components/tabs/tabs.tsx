@@ -1,9 +1,9 @@
 import { Overview } from './overview';
 import { Reviews } from './reviews';
 import { Details } from './details';
-import { Review } from '../../mocks/reviews';
+import { Review } from '../../types/types';
 import { useState } from 'react';
-import { Film } from '../../mocks/films';
+import { Film } from '../../types/types';
 
 type TabsProps = {
   reviews: Review[];

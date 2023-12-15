@@ -1,14 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
-import { Film } from '../../mocks/films';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks/hooks';
 
-type MyListProps = {
-  films: Film[];
-}
-
-function MyList({films}: MyListProps): JSX.Element {
+function MyList(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   return (
     <>
       <Helmet>

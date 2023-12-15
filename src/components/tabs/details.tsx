@@ -1,4 +1,4 @@
-import { Film } from '../../mocks/films';
+import { Film } from '../../types/types';
 
 type DetailsProps = {
   film: Film;
@@ -10,12 +10,12 @@ export function Details({ film }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>
-          <span className="film-card__details-value">{film.details.director}</span>
+          <span className="film-card__details-value">{film.director}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {film.details.starring.map((item) => (
+            {film.starring.map((item) => (
               `${item} <br />`
             ))}
           </span>
@@ -25,15 +25,15 @@ export function Details({ film }: DetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.details.duration.hours}h {film.details.duration.minutes}m</span>
+          <span className="film-card__details-value">{film.runTime}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
-          <span className="film-card__details-value">{film.details.genre}</span>
+          <span className="film-card__details-value">{film.genre}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{film.details.filmYear}</span>
+          <span className="film-card__details-value">{film.released}</span>
         </p>
       </div>
     </div>

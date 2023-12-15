@@ -1,21 +1,27 @@
-import { Film } from '../../mocks/films';
 import { useDispatch } from 'react-redux';
-import { changeGenre } from '../../store/action';
+import { changeGenre, getGenres } from '../../store/action';
+import { useAppSelector } from '../../hooks/hooks';
+import { useEffect } from 'react';
 
 type GenreListProps = {
-  films: Film[];
   activeGenre: string;
 }
 
-function GenreList({films, activeGenre}: GenreListProps): JSX.Element {
-  const genres = ['All genres'].concat(Array.from(new Set(films.map((film) => film.details.genre))));
+function GenreList({activeGenre}: GenreListProps): JSX.Element {
   const dispatch = useDispatch();
+  const films = useAppSelector((state) => state.films);
+
+  useEffect(() => {
+    dispatch(getGenres());
+  }, [dispatch, films]);
+
+  const genres = useAppSelector((state) => state.allGenres);
 
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
         <li className={`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`} key={genre}>
-          <button className='catalog__genres-link' onClick={() => dispatch(changeGenre(genre))}>
+          <button style={{backgroundColor: 'transparent', border: 0}} className='catalog__genres-link' onClick={() => dispatch(changeGenre(genre))}>
             {genre}
           </button>
         </li>

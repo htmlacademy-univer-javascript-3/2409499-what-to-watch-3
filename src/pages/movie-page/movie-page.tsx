@@ -4,14 +4,11 @@ import { AppRoute } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
 import { reviews } from '../../mocks/reviews';
 import FilmsList from '../../components/films-list/films-list';
-import { Film } from '../../mocks/films';
+import { useAppSelector } from '../../hooks/hooks';
 
-type MoviePageProps = {
-  films: Film[];
-};
-
-function MoviePage({films}: MoviePageProps): JSX.Element {
+function MoviePage(): JSX.Element {
   const {filmId} = useParams();
+  const films = useAppSelector((state) => state.films);
   const film = films.find((item) => item.id === filmId) ?? films[0];
 
   return (
@@ -91,7 +88,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={films.filter((item) => (item.id !== film.id && item.details.genre === film.details.genre)).slice(0, 4)}/>
+            <FilmsList films={films.filter((item) => (item.id !== film.id && item.genre === film.genre)).slice(0, 4)}/>
           </div>
         </section>
 

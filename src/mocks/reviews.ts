@@ -1,9 +1,4 @@
-export type Review = {
-  author: string;
-  date: string;
-  reviewRating: number;
-  reviewText: string;
-}
+import { Review } from '../types/types';
 
 export const reviews: Review[] = [
   {

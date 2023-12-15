@@ -1,13 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import { Film } from '../../mocks/films';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/hooks';
 
-type PlayerProps = {
-  films: Film[];
-}
-
-function Player({films}: PlayerProps): JSX.Element {
+function Player(): JSX.Element {
   const {id} = useParams();
+  const films = useAppSelector((state) => state.films);
   const film = films.find((item) => item.id === id) ?? films[0];
 
   return (
@@ -16,7 +13,7 @@ function Player({films}: PlayerProps): JSX.Element {
         <title>Плеер</title>
       </Helmet>
       <div className="player">
-        <video src={film.videoSrc} className="player__video" poster={film.image}></video>
+        <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
         <button type="button" className="player__exit">Exit</button>
 

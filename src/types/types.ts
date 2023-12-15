@@ -26,6 +26,7 @@ export type Review = {
 };
 
 export type Promo = {
+  id: string;
   name: string;
   posterImage: string;
   backgroundImage: string;
@@ -43,4 +44,12 @@ export type User = {
 
 export type UserAuth = User & {
   token: string;
+};
+
+export type Comment = {
+  id: string;
+  comment: string;
+  user: string;
+  rating: number;
+  date: string;
 };

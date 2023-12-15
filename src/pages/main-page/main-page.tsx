@@ -7,17 +7,13 @@ import { useEffect } from 'react';
 import { getFilms, setFilmsCount } from '../../store/action';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../../components/spinner/spinner';
-import { Promo } from '../../types/types';
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-export type MainPageProps = {
-  promoFilm: Promo;
-};
-
-function MainPage({ promoFilm }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const dispatch = useDispatch();
   const filmsCount = useAppSelector((state) => state.filmsCount);
   const films = useAppSelector((state) => state.films);
@@ -36,7 +32,7 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
       <Spinner />
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
+          <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -60,10 +56,10 @@ function MainPage({ promoFilm }: MainPageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilm.name}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilm.genre}</span>
-                <span className="film-card__year">{promoFilm.released}</span>
+                <span className="film-card__genre">{promoFilm?.genre}</span>
+                <span className="film-card__year">{promoFilm?.released}</span>
               </p>
 
               <div className="film-card__buttons">

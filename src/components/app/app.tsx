@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import MainPage, { MainPageProps } from '../../pages/main-page/main-page';
+import MainPage from '../../pages/main-page/main-page';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
 import MoviePage from '../../pages/movie-page/movie-page';
@@ -10,14 +10,14 @@ import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 
-function App({promoFilm}: MainPageProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage promoFilm={promoFilm}/>}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.SignIn}

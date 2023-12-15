@@ -60,7 +60,7 @@ function AddReview(): JSX.Element {
         </div>
 
         <div className="add-review">
-          <AddReviewForm />
+          <AddReviewForm filmId={film.id}/>
         </div>
 
       </section>

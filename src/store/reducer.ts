@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres, setAuthStatus, setUser } from './action';
-import { Film, User } from '../types/types';
+import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres, setAuthStatus, setUser, setPromo, setComments } from './action';
+import { Film, Promo, User, Comment } from '../types/types';
 import { AuthorizationStatus } from '../const';
 
 export type State = {
@@ -13,6 +13,9 @@ export type State = {
   activeFilm: Film | null;
   authStatus: AuthorizationStatus;
   user: User | null;
+  promoFilm: Promo | null;
+  comments: Comment[];
+  similarFilms: Film[];
 };
 
 const initialState: State = {
@@ -24,7 +27,10 @@ const initialState: State = {
   filteredFilms: [],
   activeFilm: null,
   authStatus: AuthorizationStatus.Unknown,
-  user: null
+  user: null,
+  promoFilm: null,
+  comments: [],
+  similarFilms: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -55,5 +61,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUser, (state, action) => {
       state.user = action.payload;
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(setPromo, (state, action) => {
+      state.promoFilm = action.payload;
     });
 });

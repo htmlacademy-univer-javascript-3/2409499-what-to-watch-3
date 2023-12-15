@@ -4,12 +4,36 @@ import { AppRoute } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
 import { reviews } from '../../mocks/reviews';
 import FilmsList from '../../components/films-list/films-list';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useEffect } from 'react';
+import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api-actions';
+import PageNotFound from '../page-not-found/page-not-found';
 
 function MoviePage(): JSX.Element {
   const {filmId} = useParams();
-  const films = useAppSelector((state) => state.films);
-  const film = films.find((item) => item.id === filmId) ?? films[0];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (filmId) {
+      dispatch(fetchFilmByID(filmId));
+    }
+  }, [dispatch, filmId]);
+
+  const film = useAppSelector((state) => state.activeFilm);
+  const authStatus = useAppSelector((state) => state.authStatus);
+
+  useEffect(() => {
+    if (filmId) {
+      dispatch(fetchSimilarFilms(filmId));
+      dispatch(fetchComments(filmId));
+    }
+  }, [dispatch, filmId]);
+
+  const similarFilms = useAppSelector((state) => state.similarFilms);
+
+  if (!film) {
+    return <PageNotFound />;
+  }
 
   return (
     <>
@@ -67,7 +91,9 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                {
+                  authStatus && <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                }
               </div>
             </div>
           </div>
@@ -88,7 +114,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={films.filter((item) => (item.id !== film.id && item.genre === film.genre)).slice(0, 4)}/>
+            <FilmsList films={similarFilms.slice(0, 4)}/>
           </div>
         </section>
 

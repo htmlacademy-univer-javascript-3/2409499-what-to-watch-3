@@ -34,3 +34,13 @@ export type Promo = {
   released: number;
   isFavorite: boolean;
 };
+
+export type User = {
+  name: string;
+  avatarUrl: string;
+  email: string;
+};
+
+export type UserAuth = User & {
+  token: string;
+};

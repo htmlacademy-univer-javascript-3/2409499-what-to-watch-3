@@ -8,12 +8,15 @@ import { getFilms, setFilmsCount } from '../../store/action';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../../components/spinner/spinner';
 import { Promo } from '../../types/types';
+import Header from '../../components/header/header';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export type MainPageProps = {
   promoFilm: Promo;
 };
 
-function MainPage({promoFilm}: MainPageProps): JSX.Element {
+function MainPage({ promoFilm }: MainPageProps): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
   const dispatch = useDispatch();
   const filmsCount = useAppSelector((state) => state.filmsCount);
@@ -30,7 +33,7 @@ function MainPage({promoFilm}: MainPageProps): JSX.Element {
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <Spinner/>
+      <Spinner />
       <section className="film-card">
         <div className="film-card__bg">
           <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
@@ -40,23 +43,14 @@ function MainPage({promoFilm}: MainPageProps): JSX.Element {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link to={AppRoute.Main} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <Header />
         </header>
 
         <div className="film-card__wrap">
@@ -95,8 +89,8 @@ function MainPage({promoFilm}: MainPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList activeGenre='All genres'/>
-          <FilmsList films={filteredFilms.slice(0, filmsCount)}/>
+          <GenreList activeGenre='All genres' />
+          <FilmsList films={filteredFilms.slice(0, filmsCount)} />
           {filteredFilms.length > filmsCount && <ShowMoreButton />}
         </section>
 

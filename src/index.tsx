@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { fetchFilmsAction } from './store/api-actions';
+import { fetchFilmsAction, loginGet } from './store/api-actions';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { Promo } from './types/types';
@@ -21,6 +21,7 @@ const promoFilm: Promo = {
 };
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(loginGet());
 
 root.render(
   <React.StrictMode>

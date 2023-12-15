@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres } from './action';
-import { Film } from '../types/types';
+import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres, setAuthStatus, setUser } from './action';
+import { Film, User } from '../types/types';
+import { AuthorizationStatus } from '../const';
 
 export type State = {
   genre: string;
@@ -10,6 +11,8 @@ export type State = {
   isLoading: boolean;
   filteredFilms: Film[];
   activeFilm: Film | null;
+  authStatus: AuthorizationStatus;
+  user: User | null;
 };
 
 const initialState: State = {
@@ -19,7 +22,9 @@ const initialState: State = {
   filmsCount: 8,
   isLoading: false,
   filteredFilms: [],
-  activeFilm: null
+  activeFilm: null,
+  authStatus: AuthorizationStatus.Unknown,
+  user: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -44,5 +49,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getGenres, (state) => {
       state.allGenres = ['All genres'].concat(Array.from(new Set(state.films.map((film) => film.genre))));
+    })
+    .addCase(setAuthStatus, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });

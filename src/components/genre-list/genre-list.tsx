@@ -3,11 +3,7 @@ import { changeGenre, getGenres } from '../../store/action';
 import { useAppSelector } from '../../hooks/hooks';
 import { useEffect } from 'react';
 
-type GenreListProps = {
-  activeGenre: string;
-}
-
-function GenreList({activeGenre}: GenreListProps): JSX.Element {
+function GenreList(): JSX.Element {
   const dispatch = useDispatch();
   const films = useAppSelector((state) => state.films);
 
@@ -16,6 +12,7 @@ function GenreList({activeGenre}: GenreListProps): JSX.Element {
   }, [dispatch, films]);
 
   const genres = useAppSelector((state) => state.allGenres);
+  const activeGenre = useAppSelector((state) => state.genre);
 
   return (
     <ul className="catalog__genres-list">

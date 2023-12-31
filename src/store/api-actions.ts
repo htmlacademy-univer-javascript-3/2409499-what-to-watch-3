@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { setActiveFilm, setAuthStatus, setComments, setFilms, setLoading, setPromo, setSimilarFilms, setUser } from './action';
-import { AppDispatch } from '../hooks/hooks';
+import { AppDispatch } from '../types/state';
 import { State } from './reducer';
 import { Film, Promo, UserAuth, Comment } from '../types/types';
 import { AuthorizationStatus } from '../const';

@@ -1,12 +1,11 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { setActiveFilm, setAuthStatus, setComments, setError, setFilms, setLoading, setPromo, setSimilarFilms, setUser } from './action';
+import { setActiveFilm, setAuthStatus, setComments, setFilms, setLoading, setPromo, setSimilarFilms, setUser } from './action';
 import { AppDispatch } from '../types/state';
 import { State } from './reducer';
 import { Film, Promo, UserAuth, Comment, AuthData } from '../types/types';
-import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { AuthorizationStatus } from '../const';
 import { removeToken, setToken } from '../services/token';
-import { store } from '.';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -131,15 +130,5 @@ export const commentPost = createAsyncThunk<void, {filmId: string; commentReques
   'commentPost',
   async ({filmId, commentRequest}, {extra:api}) => {
     await api.post(`/comments/${filmId}`, commentRequest);
-  }
-);
-
-export const clearError = createAsyncThunk(
-  'clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR
-    );
   }
 );

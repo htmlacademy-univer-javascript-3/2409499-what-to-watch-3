@@ -53,3 +53,8 @@ export type Comment = {
   rating: number;
   date: string;
 };
+
+export type AuthData = {
+  email: string;
+  password: string;
+};

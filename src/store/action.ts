@@ -14,3 +14,4 @@ export const setUser = createAction<User | null>('setUser');
 export const setPromo = createAction<Promo>('setPromo');
 export const setComments = createAction<Comment[]>('setComments');
 export const setSimilarFilms = createAction<Film[]>('setSimilarFilms');
+export const setError = createAction<string | null>('setError');

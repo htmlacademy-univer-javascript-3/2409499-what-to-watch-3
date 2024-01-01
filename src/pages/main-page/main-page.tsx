@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getFilms, setFilmsCount } from '../../store/action';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import Spinner from '../../components/spinner/spinner';
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -29,7 +28,6 @@ function MainPage(): JSX.Element {
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <Spinner />
       <section className="film-card">
         <div className="film-card__bg">
           <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} />

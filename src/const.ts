@@ -18,3 +18,5 @@ export const Setting = {
   Genre: 'Drama',
   FilmYear: 2014
 } as const;
+
+export const TIMEOUT_SHOW_ERROR = 2000;

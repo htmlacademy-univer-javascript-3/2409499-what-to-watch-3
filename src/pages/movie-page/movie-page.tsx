@@ -2,34 +2,36 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
-import { reviews } from '../../mocks/reviews';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useEffect } from 'react';
 import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 function MoviePage(): JSX.Element {
-  const {filmId} = useParams();
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (filmId) {
-      dispatch(fetchFilmByID(filmId));
+    if (id) {
+      dispatch(fetchFilmByID(id));
     }
-  }, [dispatch, filmId]);
+  }, [dispatch, id]);
 
   const film = useAppSelector((state) => state.activeFilm);
   const authStatus = useAppSelector((state) => state.authStatus);
 
   useEffect(() => {
-    if (filmId) {
-      dispatch(fetchSimilarFilms(filmId));
-      dispatch(fetchComments(filmId));
+    if (id) {
+      dispatch(fetchSimilarFilms(id));
+      dispatch(fetchComments(id));
     }
-  }, [dispatch, filmId]);
+  }, [dispatch, id]);
 
   const similarFilms = useAppSelector((state) => state.similarFilms);
+  const comments = useAppSelector((state) => state.comments);
 
   if (!film) {
     return <PageNotFound />;
@@ -57,24 +59,15 @@ function MoviePage(): JSX.Element {
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <Header />
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -104,7 +97,7 @@ function MoviePage(): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
-            <Tabs reviews={reviews} film={film}/>
+            <Tabs reviews={comments} film={film}/>
           </div>
         </div>
       </section>
@@ -118,19 +111,7 @@ function MoviePage(): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoute.Main} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

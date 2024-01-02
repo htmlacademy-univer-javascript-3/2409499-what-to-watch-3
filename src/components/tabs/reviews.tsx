@@ -1,28 +1,28 @@
-import { Review } from '../../types/types';
+import { Comment } from '../../types/types';
 
 type ReviewCardProps = {
-  reviewDetails: Review;
+  reviewDetails: Comment;
 };
 
 function ReviewCard({ reviewDetails }: ReviewCardProps): JSX.Element {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{reviewDetails.reviewText}</p>
+        <p className="review__text">{reviewDetails.comment}</p>
 
         <footer className="review__details">
-          <cite className="review__author">{reviewDetails.author}</cite>
+          <cite className="review__author">{reviewDetails.user}</cite>
           <time className="review__date" dateTime="2016-12-24">{reviewDetails.date}</time>
         </footer>
       </blockquote>
 
-      <div className="review__rating">{reviewDetails.reviewRating}</div>
+      <div className="review__rating">{reviewDetails.rating}</div>
     </div>
   );
 }
 
 type ReviewsProps = {
-  reviews: Review[];
+  reviews: Comment[];
 };
 
 export function Reviews({reviews}: ReviewsProps): JSX.Element {

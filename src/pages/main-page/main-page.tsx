@@ -9,6 +9,7 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import Footer from '../../components/footer/footer';
 
 function MainPage(): JSX.Element {
   const currentGenre = useAppSelector((state) => state.genre);
@@ -88,19 +89,7 @@ function MainPage(): JSX.Element {
           {filteredFilms.length > filmsCount && <ShowMoreButton />}
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

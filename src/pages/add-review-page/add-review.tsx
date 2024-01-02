@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AddReviewForm } from '../../components/add-review-form/add-review-form';
 import { useAppSelector } from '../../hooks/hooks';
+import Header from '../../components/header/header';
 
 function AddReview(): JSX.Element {
   const {id} = useParams();
@@ -42,16 +43,7 @@ function AddReview(): JSX.Element {
               </ul>
             </nav>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <Header />
           </header>
 
           <div className="film-card__poster film-card__poster--small">

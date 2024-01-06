@@ -1,14 +1,13 @@
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../hooks/hooks';
-import { setFilmsCount } from '../../store/action';
+import { MouseEventHandler } from 'react';
 
-function ShowMoreButton(): JSX.Element {
-  const dispatch = useDispatch();
-  const filmsCount = useAppSelector((state) => state.filmsCount);
+export type ShowMoreButtonProps = {
+  setFilmsCount: MouseEventHandler;
+};
 
+function ShowMoreButton({setFilmsCount}: ShowMoreButtonProps): JSX.Element {
   return (
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={() => dispatch(setFilmsCount(filmsCount + 8))}>
+      <button className="catalog__button" type="button" onClick={setFilmsCount}>
         Show more
       </button>
     </div>

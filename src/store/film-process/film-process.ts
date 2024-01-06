@@ -12,7 +12,7 @@ const initialState: FilmProcess = {
 };
 
 export const filmProcess = createSlice({
-  name: NameSpace.Films,
+  name: NameSpace.Film,
   initialState,
   reducers: {},
   extraReducers(builder) {

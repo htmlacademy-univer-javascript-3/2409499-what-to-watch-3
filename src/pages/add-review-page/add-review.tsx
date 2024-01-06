@@ -7,6 +7,7 @@ import Header from '../../components/header/header';
 import { useEffect } from 'react';
 import { fetchFilmByID } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
+import { selectFilm } from '../../store/film-process/film-process.selectors';
 
 function AddReview(): JSX.Element {
   const {id} = useParams();
@@ -18,7 +19,7 @@ function AddReview(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  const film = useAppSelector((state) => state.activeFilm);
+  const film = useAppSelector(selectFilm);
 
   if (!film) {
     return <PageNotFound />;

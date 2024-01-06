@@ -9,23 +9,21 @@ import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api
 import PageNotFound from '../page-not-found/page-not-found';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import { setActiveFilm } from '../../store/action';
+import { selectComments, selectFilm, selectSimilarFilms } from '../../store/film-process/film-process.selectors';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function MoviePage(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  const activeFilm = useAppSelector((state) => state.activeFilm);
 
   useEffect(() => {
-    if (id && !activeFilm) {
+    if (id) {
       dispatch(fetchFilmByID(id));
-    } else {
-      dispatch(setActiveFilm(null));
     }
   }, [id, dispatch]);
 
-  const film = useAppSelector((state) => state.activeFilm);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const film = useAppSelector(selectFilm);
+  const authStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
     if (id) {
@@ -34,8 +32,8 @@ function MoviePage(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  const similarFilms = useAppSelector((state) => state.similarFilms);
-  const comments = useAppSelector((state) => state.comments);
+  const similarFilms = useAppSelector(selectSimilarFilms);
+  const comments = useAppSelector(selectComments);
 
   if (!film) {
     return <PageNotFound />;

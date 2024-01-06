@@ -11,10 +11,12 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import Spinner from '../spinner/spinner';
 import { useAppSelector } from '../../hooks/hooks';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
+import { selectIsLoading } from '../../store/data-process/data-process.selectors';
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const isLoading = useAppSelector(selectIsLoading);
 
   if (authStatus === AuthorizationStatus.Unknown || isLoading) {
     return <Spinner />;

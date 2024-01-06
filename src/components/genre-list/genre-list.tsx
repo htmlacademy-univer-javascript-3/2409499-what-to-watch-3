@@ -1,14 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { changeGenre } from '../../store/action';
 import { useAppSelector } from '../../hooks/hooks';
 import { useMemo } from 'react';
+import { selectFilms, selectGenre } from '../../store/data-process/data-process.selectors';
+import { changeGenre } from '../../store/data-process/data-process';
 
 function GenreList(): JSX.Element {
   const dispatch = useDispatch();
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(selectFilms);
 
   const genres = useMemo(() => ['All genres'].concat(Array.from(new Set(films.map((film) => film.genre)))), [films]);
-  const activeGenre = useAppSelector((state) => state.genre);
+  const activeGenre = useAppSelector(selectGenre);
 
   return (
     <ul className="catalog__genres-list">

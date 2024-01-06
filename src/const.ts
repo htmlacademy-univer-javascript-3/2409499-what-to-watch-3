@@ -15,7 +15,7 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
   User = 'USER',
-  Films = 'FILMS',
+  Film = 'FILMS',
   Data = 'DATA',
 }
 

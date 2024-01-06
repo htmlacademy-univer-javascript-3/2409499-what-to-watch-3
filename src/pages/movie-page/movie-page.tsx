@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -9,26 +9,30 @@ import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api
 import PageNotFound from '../page-not-found/page-not-found';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import { setActiveFilm } from '../../store/action';
 
 function MoviePage(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
+  const activeFilm = useAppSelector((state) => state.activeFilm);
 
   useEffect(() => {
-    if (id) {
+    if (id && !activeFilm) {
       dispatch(fetchFilmByID(id));
+    } else {
+      dispatch(setActiveFilm(null));
     }
-  }, [dispatch, id]);
+  }, [id, dispatch]);
 
   const film = useAppSelector((state) => state.activeFilm);
   const authStatus = useAppSelector((state) => state.authStatus);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchSimilarFilms(id));
-      dispatch(fetchComments(id));
-    }
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(fetchSimilarFilms(id));
+  //     dispatch(fetchComments(id));
+  //   }
+  // }, [id, dispatch]);
 
   const similarFilms = useAppSelector((state) => state.similarFilms);
   const comments = useAppSelector((state) => state.comments);
@@ -79,13 +83,14 @@ function MoviePage(): JSX.Element {
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={film.isFavorite ? '#in-list' : '#add'}></use>
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
                 {
-                  authStatus && <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                  authStatus === AuthorizationStatus.Auth &&
+                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
                 }
               </div>
             </div>
@@ -107,7 +112,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={similarFilms.slice(0, 4)}/>
+            <FilmsList films={similarFilms}/>
           </div>
         </section>
 

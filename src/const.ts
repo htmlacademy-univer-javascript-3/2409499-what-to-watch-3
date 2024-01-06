@@ -13,10 +13,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
-export const Setting = {
-  FilmName: 'The Grand Budapest Hotel',
-  Genre: 'Drama',
-  FilmYear: 2014
-} as const;
+export enum NameSpace {
+  User = 'USER',
+  Comments = 'COMMENTS',
+  Films = 'FILMS',
+}
 
 export const TIMEOUT_SHOW_ERROR = 2000;

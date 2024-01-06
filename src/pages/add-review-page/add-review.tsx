@@ -2,13 +2,27 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AddReviewForm } from '../../components/add-review-form/add-review-form';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import Header from '../../components/header/header';
+import { useEffect } from 'react';
+import { fetchFilmByID } from '../../store/api-actions';
+import PageNotFound from '../page-not-found/page-not-found';
 
 function AddReview(): JSX.Element {
   const {id} = useParams();
-  const films = useAppSelector((state) => state.films);
-  const film = films.find((item) => item.id === id) ?? films[0];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmByID(id));
+    }
+  }, [dispatch, id]);
+
+  const film = useAppSelector((state) => state.activeFilm);
+
+  if (!film) {
+    return <PageNotFound />;
+  }
 
   return (
     <>
@@ -18,7 +32,7 @@ function AddReview(): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={film?.backgroundImage} alt={film?.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -35,7 +49,7 @@ function AddReview(): JSX.Element {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={AppRoute.Film} className="breadcrumbs__link">{film.name}</Link>
+                  <Link to={`/films/${id}`} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

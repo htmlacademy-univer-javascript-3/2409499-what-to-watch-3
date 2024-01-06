@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres, setAuthStatus, setUser, setPromo, setComments } from './action';
+import { changeGenre, getFilms, setFilmsCount, setFilms, setActiveFilm, setLoading, getGenres, setAuthStatus, setUser, setPromo, setComments, setSimilarFilms } from './action';
 import { Film, Promo, User, Comment } from '../types/types';
 import { AuthorizationStatus } from '../const';
 
@@ -67,5 +67,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setPromo, (state, action) => {
       state.promoFilm = action.payload;
+    })
+    .addCase(setSimilarFilms, (state, action) => {
+      state.similarFilms = action.payload;
     });
 });

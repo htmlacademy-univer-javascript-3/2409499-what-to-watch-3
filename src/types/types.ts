@@ -53,3 +53,20 @@ export type Comment = {
   rating: number;
   date: string;
 };
+
+export type AuthData = {
+  email: string;
+  password: string;
+};
+
+export type ErrorDetailItem = {
+  property: string;
+  value: string;
+  messages: string[];
+};
+
+export type ErrorDetails = {
+  errorType: string;
+  message: string;
+  details: ErrorDetailItem[];
+};

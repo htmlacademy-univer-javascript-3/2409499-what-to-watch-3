@@ -3,25 +3,32 @@ import FilmsList from '../../components/films-list/films-list';
 import GenreList from '../../components/genre-list/genre-list';
 import { useAppSelector } from '../../hooks/hooks';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getFilms, setFilmsCount } from '../../store/action';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import Spinner from '../../components/spinner/spinner';
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import Footer from '../../components/footer/footer';
+import { selectFilms, selectGenre, selectPromo } from '../../store/data-process/data-process.selectors';
+import { Film } from '../../types/types';
+
+function filterFilms(films: Film[], genre: string): Film[] {
+  return genre === 'All genres' ? films : films.filter((film) => film.genre === genre);
+}
 
 function MainPage(): JSX.Element {
-  const currentGenre = useAppSelector((state) => state.genre);
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const currentGenre = useAppSelector(selectGenre);
+  const promoFilm = useAppSelector(selectPromo);
+  const films = useAppSelector(selectFilms);
+  const filteredFilms = useMemo(() => filterFilms(films, currentGenre), [films, currentGenre]);
+  const [filmsCount, setFilmsCount] = useState(8);
+
   const dispatch = useDispatch();
-  const filmsCount = useAppSelector((state) => state.filmsCount);
-  const films = useAppSelector((state) => state.films);
-  const filteredFilms = useAppSelector((state) => state.filteredFilms);
+
+  const setFilmsCountCallback = useCallback((count: number) => setFilmsCount(count + 8), []);
 
   useEffect(() => {
-    dispatch(setFilmsCount(8));
-    dispatch(getFilms());
+    setFilmsCount(8);
   }, [currentGenre, films, dispatch]);
 
   return (
@@ -29,7 +36,6 @@ function MainPage(): JSX.Element {
       <Helmet>
         <title>Главная страница</title>
       </Helmet>
-      <Spinner />
       <section className="film-card">
         <div className="film-card__bg">
           <img src={promoFilm?.backgroundImage} alt={promoFilm?.name} />
@@ -52,7 +58,7 @@ function MainPage(): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm?.posterImage} alt={promoFilm?.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -85,24 +91,12 @@ function MainPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList activeGenre='All genres' />
+          <GenreList />
           <FilmsList films={filteredFilms.slice(0, filmsCount)} />
-          {filteredFilms.length > filmsCount && <ShowMoreButton />}
+          {filteredFilms.length > filmsCount && <ShowMoreButton setFilmsCount={() => setFilmsCountCallback(filmsCount)}/>}
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

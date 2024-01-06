@@ -3,9 +3,12 @@ import FilmsList from '../../components/films-list/films-list';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks/hooks';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import { selectFilms } from '../../store/data-process/data-process.selectors';
 
 function MyList(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(selectFilms);
   return (
     <>
       <Helmet>
@@ -22,16 +25,7 @@ function MyList(): JSX.Element {
           </div>
 
           <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <Header />
         </header>
 
         <section className="catalog">
@@ -39,19 +33,7 @@ function MyList(): JSX.Element {
           <FilmsList films={films}/>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoute.Main} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

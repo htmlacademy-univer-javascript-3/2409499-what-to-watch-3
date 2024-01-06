@@ -6,11 +6,22 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import AddReview from '../../pages/add-review-page/add-review';
 import Player from '../../pages/player/player';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import Spinner from '../spinner/spinner';
+import { useAppSelector } from '../../hooks/hooks';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
+import { selectIsLoading } from '../../store/data-process/data-process.selectors';
 
 function App(): JSX.Element {
+  const authStatus = useAppSelector(selectAuthStatus);
+  const isLoading = useAppSelector(selectIsLoading);
+
+  if (authStatus === AuthorizationStatus.Unknown || isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -37,7 +48,11 @@ function App(): JSX.Element {
           />
           <Route
             path={AppRoute.AddReview}
-            element={<AddReview />}
+            element={
+              <PrivateRoute>
+                <AddReview />
+              </PrivateRoute>
+            }
           />
           <Route
             path={AppRoute.Player}

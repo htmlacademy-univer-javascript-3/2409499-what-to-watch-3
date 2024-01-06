@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { setAuthStatus, setUser } from '../../store/action';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { removeToken } from '../../services/token';
+import { selectAuthStatus, selectUser } from '../../store/user-process/user-process.selectors';
+import { logout } from '../../store/api-actions';
 
 function Header(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const user = useAppSelector((state) => state.user);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   return (
@@ -23,9 +24,8 @@ function Header(): JSX.Element {
               className="user-block__link"
               style={{ background: 'transparent', border: 'none' }}
               onClick={() => {
-                dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
-                dispatch(setUser(null));
                 removeToken();
+                dispatch(logout());
               }}
             >
               Sign out

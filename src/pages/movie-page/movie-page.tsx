@@ -1,35 +1,39 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
-import { reviews } from '../../mocks/reviews';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useEffect } from 'react';
 import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import { selectComments, selectFilm, selectSimilarFilms } from '../../store/film-process/film-process.selectors';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function MoviePage(): JSX.Element {
-  const {filmId} = useParams();
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (filmId) {
-      dispatch(fetchFilmByID(filmId));
+    if (id) {
+      dispatch(fetchFilmByID(id));
     }
-  }, [dispatch, filmId]);
+  }, [id, dispatch]);
 
-  const film = useAppSelector((state) => state.activeFilm);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const film = useAppSelector(selectFilm);
+  const authStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
-    if (filmId) {
-      dispatch(fetchSimilarFilms(filmId));
-      dispatch(fetchComments(filmId));
+    if (id) {
+      dispatch(fetchSimilarFilms(id));
+      dispatch(fetchComments(id));
     }
-  }, [dispatch, filmId]);
+  }, [id, dispatch]);
 
-  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const similarFilms = useAppSelector(selectSimilarFilms);
+  const comments = useAppSelector(selectComments);
 
   if (!film) {
     return <PageNotFound />;
@@ -43,7 +47,7 @@ function MoviePage(): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -57,24 +61,15 @@ function MoviePage(): JSX.Element {
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <Header />
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -86,13 +81,14 @@ function MoviePage(): JSX.Element {
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={film.isFavorite ? '#in-list' : '#add'}></use>
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
                 {
-                  authStatus && <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                  authStatus === AuthorizationStatus.Auth &&
+                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
                 }
               </div>
             </div>
@@ -102,9 +98,9 @@ function MoviePage(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
-            <Tabs reviews={reviews} film={film}/>
+            <Tabs reviews={comments} film={film}/>
           </div>
         </div>
       </section>
@@ -114,23 +110,11 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={similarFilms.slice(0, 4)}/>
+            <FilmsList films={similarFilms}/>
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={AppRoute.Main} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

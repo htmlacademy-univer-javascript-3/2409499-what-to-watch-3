@@ -1,12 +1,12 @@
 import { Overview } from './overview';
 import { Reviews } from './reviews';
 import { Details } from './details';
-import { Review } from '../../types/types';
+import { Comment } from '../../types/types';
 import { useState } from 'react';
 import { Film } from '../../types/types';
 
 type TabsProps = {
-  reviews: Review[];
+  reviews: Comment[];
   film: Film;
 };
 

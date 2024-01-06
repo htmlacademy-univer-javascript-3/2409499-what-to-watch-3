@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooks';
+import { selectFilms } from '../../store/data-process/data-process.selectors';
 
 function Player(): JSX.Element {
   const {id} = useParams();
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(selectFilms);
   const film = films.find((item) => item.id === id) ?? films[0];
 
   return (

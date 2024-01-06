@@ -1,6 +1,7 @@
+import { SerializedError } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
-import { ErrorDetails, Film, User } from './types';
+import { Comment, ErrorDetails, Film, Promo, User } from './types';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -12,10 +13,17 @@ export type UserProcess = {
 };
 
 export type FilmProcess = {
-  films: Film[];
-  activeFilm: Film | null;
-  promoFilm: Film | null;
+  film: Film | null;
   similarFilms: Film[];
+  comments: Comment[];
   isLoading: boolean;
-  hasError: boolean;
+  error: SerializedError | null;
+}
+
+export type DataProcess = {
+  films: Film[];
+  promo: Promo | null;
+  genre: string;
+  isLoading: boolean;
+  error: SerializedError | null;
 }

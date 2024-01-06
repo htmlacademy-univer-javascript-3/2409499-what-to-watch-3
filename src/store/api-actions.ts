@@ -1,8 +1,7 @@
 import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { setActiveFilm, setComments, setFilms, setLoading, setPromo, setSimilarFilms } from './action';
 import { AppDispatch } from '../types/state';
-import { State } from './reducer';
+import { State } from '../types/state';
 import { Film, Promo, UserAuth, Comment, AuthData, ErrorDetails, User } from '../types/types';
 import { removeToken, setToken } from '../services/token';
 
@@ -12,11 +11,8 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
   extra: AxiosInstance;
 }>(
   'fetchFilms',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<Film[]>('/films');
-    dispatch(setLoading(false));
-    dispatch(setFilms(data));
     return data;
   },
 );
@@ -27,11 +23,8 @@ export const fetchFilmByID = createAsyncThunk<Film, string, {
   extra: AxiosInstance;
 }>(
   'fetchFilmByID',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
+  async (id, {extra: api}) => {
     const {data} = await api.get<Film>(`/films/${id}`);
-    dispatch(setLoading(false));
-    dispatch(setActiveFilm(data));
     return data;
   },
 );
@@ -85,45 +78,39 @@ export const logout = createAsyncThunk<void, undefined, {
   }
 );
 
-export const fetchPromo = createAsyncThunk<void, undefined, {
+export const fetchPromo = createAsyncThunk<Promo, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchPromo',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<Promo>('/promo');
-    dispatch(setLoading(false));
-    dispatch(setPromo(data));
+    return data;
   }
 );
 
-export const fetchComments = createAsyncThunk<void, string, {
+export const fetchComments = createAsyncThunk<Comment[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchComments',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
+  async (id, {extra: api}) => {
     const {data} = await api.get<Comment[]>(`/comments/${id}`);
-    dispatch(setLoading(false));
-    dispatch(setComments(data));
+    return data;
   }
 );
 
-export const fetchSimilarFilms = createAsyncThunk<void, string, {
+export const fetchSimilarFilms = createAsyncThunk<Film[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchSimilarFilms',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
+  async (id, {extra: api}) => {
     const {data} = await api.get<Film[]>(`/films/${id}/similar`);
-    dispatch(setLoading(false));
-    dispatch(setSimilarFilms(data));
+    return data;
   }
 );
 

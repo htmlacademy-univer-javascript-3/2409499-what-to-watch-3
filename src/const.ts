@@ -15,8 +15,8 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
   User = 'USER',
-  Comments = 'COMMENTS',
   Films = 'FILMS',
+  Data = 'DATA',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;

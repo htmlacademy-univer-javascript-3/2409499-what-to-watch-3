@@ -27,12 +27,12 @@ function MoviePage(): JSX.Element {
   const film = useAppSelector((state) => state.activeFilm);
   const authStatus = useAppSelector((state) => state.authStatus);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(fetchSimilarFilms(id));
-  //     dispatch(fetchComments(id));
-  //   }
-  // }, [id, dispatch]);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSimilarFilms(id));
+      dispatch(fetchComments(id));
+    }
+  }, [id, dispatch]);
 
   const similarFilms = useAppSelector((state) => state.similarFilms);
   const comments = useAppSelector((state) => state.comments);

@@ -40,4 +40,4 @@ export const userProcess = createSlice({
         state.user = null;
       });
   }
-})
+});

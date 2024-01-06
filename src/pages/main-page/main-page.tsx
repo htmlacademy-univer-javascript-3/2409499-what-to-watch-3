@@ -25,7 +25,7 @@ function MainPage(): JSX.Element {
 
   const dispatch = useDispatch();
 
-  const setFilmsCountCallback = useCallback((filmsCount: number) => setFilmsCount(filmsCount + 8), []);
+  const setFilmsCountCallback = useCallback((count: number) => setFilmsCount(count + 8), []);
 
   useEffect(() => {
     setFilmsCount(8);

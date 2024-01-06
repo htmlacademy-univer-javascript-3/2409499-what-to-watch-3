@@ -21,23 +21,23 @@ export const dataProcess = createSlice({
   },
   extraReducers(builder) {
     builder
-    .addCase(fetchFilmsAction.pending, (state) => {
-      state.isLoading = true;
-      state.error = null;
-    })
-    .addCase(fetchFilmsAction.fulfilled, (state, action) => {
-      state.films = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(fetchPromo.pending, (state) => {
-      state.isLoading = true;
-      state.error = null;
-    })
-    .addCase(fetchPromo.fulfilled, (state, action) => {
-      state.promo = action.payload;
-      state.isLoading = false;
-    });
+      .addCase(fetchFilmsAction.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+        state.films = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchPromo.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchPromo.fulfilled, (state, action) => {
+        state.promo = action.payload;
+        state.isLoading = false;
+      });
   },
 });
 
-export const {changeGenre} = dataProcess.actions;
+export const { changeGenre } = dataProcess.actions;

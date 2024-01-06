@@ -5,9 +5,10 @@ import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks/hooks';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import { selectFilms } from '../../store/data-process/data-process.selectors';
 
 function MyList(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(selectFilms);
   return (
     <>
       <Helmet>

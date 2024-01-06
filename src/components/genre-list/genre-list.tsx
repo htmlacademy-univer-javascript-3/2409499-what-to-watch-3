@@ -16,7 +16,8 @@ function GenreList(): JSX.Element {
       {genres.map((genre) => (
         <li className={`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`} key={genre}>
           <button style={{ backgroundColor: 'transparent', border: 0 }} className='catalog__genres-link'
-            onClick={() => dispatch(changeGenre(genre))}>
+            onClick={() => dispatch(changeGenre(genre))}
+          >
             {genre}
           </button>
         </li>

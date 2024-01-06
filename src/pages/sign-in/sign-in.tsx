@@ -6,15 +6,18 @@ import { FormEvent, useRef } from 'react';
 import { loginPost } from '../../store/api-actions';
 import { AuthData } from '../../types/types';
 import Footer from '../../components/footer/footer';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function SignIn(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector(selectAuthStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = (authData: AuthData) => {
     dispatch(loginPost(authData));
-  }
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,9 +28,7 @@ function SignIn(): JSX.Element {
         password: passwordRef.current.value
       });
     }
-  }
-
-  const dispatch = useAppDispatch();
+  };
 
   return authStatus === AuthorizationStatus.Auth
     ? (<Navigate to={AppRoute.Main} />)

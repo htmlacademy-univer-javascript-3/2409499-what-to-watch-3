@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DataProcess } from '../../types/state';
 import { NameSpace } from '../../const';
-import { fetchFavoriteFilms, fetchFilmsAction, fetchPromo } from '../api-actions';
+import { fetchFavoriteFilms, fetchFilmsAction, fetchPromo, setFavorite } from '../api-actions';
 
 const initialState: DataProcess = {
   films: [],
@@ -46,6 +46,13 @@ export const dataProcess = createSlice({
       .addCase(fetchFavoriteFilms.rejected, (state) => {
         state.favoriteFilms = [];
         state.favoriteFilmsCount = 0;
+      })
+      .addCase(setFavorite.fulfilled, (state, action) => {
+        if (state.promo && action.payload.id === state.promo.id) {
+          state.promo = action.payload;
+        }
+        
+        state.favoriteFilmsCount += action.payload.isFavorite ? 1 : -1;
       })
   },
 });

@@ -12,9 +12,11 @@ import Footer from '../../components/footer/footer';
 import { selectComments, selectFilm, selectSimilarFilms } from '../../store/film-process/film-process.selectors';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
 import Logo from '../../components/logo/logo';
+import PlayButton from '../../components/play-button/play-button';
+import AddToMyListButton from '../../components/add-to-my-list-button/add-to-my-list-button';
 
 function MoviePage(): JSX.Element {
-  const {id} = useParams();
+  const id = useParams().id; // Fix this
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -67,22 +69,13 @@ function MoviePage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref={film.isFavorite ? '#in-list' : '#add'}></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <PlayButton filmId={id} />
                 {
                   authStatus === AuthorizationStatus.Auth &&
-                  <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                  <>
+                    <AddToMyListButton filmId={film.id} isFavorite={film.isFavorite}/>
+                    <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                  </>
                 }
               </div>
             </div>
@@ -94,7 +87,7 @@ function MoviePage(): JSX.Element {
             <div className="film-card__poster film-card__poster--big">
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
-            <Tabs reviews={comments} film={film}/>
+            <Tabs reviews={comments} film={film} />
           </div>
         </div>
       </section>
@@ -104,7 +97,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={similarFilms}/>
+            <FilmsList films={similarFilms} />
           </div>
         </section>
 

@@ -14,6 +14,7 @@ import { fetchPromo } from '../../store/api-actions';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
 import Spinner from '../../components/spinner/spinner';
 import { AuthorizationStatus } from '../../const';
+import AddToMyListButton from '../../components/add-to-my-list-button/add-to-my-list-button';
 
 function filterFilms(films: Film[], genre: string): Film[] {
   return genre === 'All genres' ? films : films.filter((film) => film.genre === genre);
@@ -79,13 +80,7 @@ function MainPage(): JSX.Element {
                 <PlayButton filmId={promoFilm?.id} />
                 {
                   authStatus === AuthorizationStatus.Auth && (
-                    <button className="btn btn--list film-card__button" type="button">
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                      <span>My list</span>
-                      <span className="film-card__count">9</span>
-                    </button>
+                    <AddToMyListButton filmId={promoFilm.id} isFavorite={promoFilm.isFavorite}/>
                   )
                 }
               </div>

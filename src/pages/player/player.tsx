@@ -9,13 +9,17 @@ import Spinner from '../../components/spinner/spinner';
 import PageNotFound from '../page-not-found/page-not-found';
 
 function Player(): JSX.Element {
-  const id = Number(useParams().id);
+  const id = useParams().id;
   const dispatch = useAppDispatch();
   const [isPlaying, setIsPlaying] = useState(true);
   const [playedTime, setPlayedTime] = useState(0);
 
+  if (!id) {
+    return <PageNotFound />;
+  }
+
   useEffect(() => {
-    dispatch(fetchFilmByID(id.toString()));
+    dispatch(fetchFilmByID(id));
   }, [id, dispatch]);
 
   const film = useAppSelector(selectFilm);

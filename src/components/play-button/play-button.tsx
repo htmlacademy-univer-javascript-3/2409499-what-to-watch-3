@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 type PlayButtonProps = {
-  filmId: number;
+  filmId: string | undefined;
 };
 
 function PlayButton({filmId}: PlayButtonProps): JSX.Element {

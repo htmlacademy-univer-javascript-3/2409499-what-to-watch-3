@@ -1,35 +1,50 @@
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import GenreList from '../../components/genre-list/genre-list';
-import { useAppSelector } from '../../hooks/hooks';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Header from '../../components/header/header';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import { selectFilms, selectGenre, selectPromo } from '../../store/data-process/data-process.selectors';
 import { Film } from '../../types/types';
+import Logo from '../../components/logo/logo';
+import PlayButton from '../../components/play-button/play-button';
+import { fetchPromo } from '../../store/api-actions';
+import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
+import Spinner from '../../components/spinner/spinner';
+import { AuthorizationStatus } from '../../const';
+import AddToMyListButton from '../../components/add-to-my-list-button/add-to-my-list-button';
 
 function filterFilms(films: Film[], genre: string): Film[] {
   return genre === 'All genres' ? films : films.filter((film) => film.genre === genre);
 }
 
 function MainPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPromo());
+  }, [dispatch]);
+
   const currentGenre = useAppSelector(selectGenre);
   const promoFilm = useAppSelector(selectPromo);
   const films = useAppSelector(selectFilms);
-  const filteredFilms = useMemo(() => filterFilms(films, currentGenre), [films, currentGenre]);
-  const [filmsCount, setFilmsCount] = useState(8);
+  const authStatus = useAppSelector(selectAuthStatus);
 
-  const dispatch = useDispatch();
+  const filteredFilms = useMemo(() => filterFilms(films, currentGenre), [films, currentGenre]);
+
+  const [filmsCount, setFilmsCount] = useState(8);
 
   const setFilmsCountCallback = useCallback((count: number) => setFilmsCount(count + 8), []);
 
   useEffect(() => {
     setFilmsCount(8);
   }, [currentGenre, films, dispatch]);
+
+  if (!promoFilm) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -44,14 +59,7 @@ function MainPage(): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <Link to={AppRoute.Main} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
+          <Logo />
           <Header />
         </header>
 
@@ -69,19 +77,12 @@ function MainPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <PlayButton filmId={promoFilm?.id} />
+                {
+                  authStatus === AuthorizationStatus.Auth && (
+                    <AddToMyListButton filmId={promoFilm.id} isFavorite={promoFilm.isFavorite}/>
+                  )
+                }
               </div>
             </div>
           </div>
@@ -93,7 +94,7 @@ function MainPage(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList />
           <FilmsList films={filteredFilms.slice(0, filmsCount)} />
-          {filteredFilms.length > filmsCount && <ShowMoreButton setFilmsCount={() => setFilmsCountCallback(filmsCount)}/>}
+          {filteredFilms.length > filmsCount && <ShowMoreButton setFilmsCount={() => setFilmsCountCallback(filmsCount)} />}
         </section>
 
         <Footer />

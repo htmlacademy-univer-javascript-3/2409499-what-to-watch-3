@@ -2,7 +2,7 @@ import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch } from '../types/state';
 import { State } from '../types/state';
-import { Film, Promo, UserAuth, Comment, AuthData, ErrorDetails, User } from '../types/types';
+import { Film, UserAuth, Comment, AuthData, ErrorDetails, User } from '../types/types';
 import { removeToken, setToken } from '../services/token';
 
 export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
@@ -23,7 +23,7 @@ export const fetchFilmByID = createAsyncThunk<Film, string, {
   extra: AxiosInstance;
 }>(
   'fetchFilmByID',
-  async (id, {extra: api}) => {
+  async (id: string, {extra: api}) => {
     const {data} = await api.get<Film>(`/films/${id}`);
     return data;
   },
@@ -78,16 +78,16 @@ export const logout = createAsyncThunk<void, undefined, {
   }
 );
 
-export const fetchPromo = createAsyncThunk<Promo, undefined, {
+export const fetchPromo = createAsyncThunk<Film, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchPromo',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<Promo>('/promo');
+    const {data} = await api.get<Film>('/promo');
     return data;
-  }
+  },
 );
 
 export const fetchComments = createAsyncThunk<Comment[], string, {
@@ -123,4 +123,28 @@ export const commentPost = createAsyncThunk<void, {filmId: string; commentReques
   async ({filmId, commentRequest}, {extra: api}) => {
     await api.post(`/comments/${filmId}`, commentRequest);
   }
+);
+
+export const fetchFavoriteFilms = createAsyncThunk<Film[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavoriteFilms',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Film[]>('/favorite');
+    return data;
+  }
+);
+
+export const setFavorite = createAsyncThunk<Film, {status: boolean; filmId: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  '/favorite/id/status',
+  async ({status, filmId}, {extra: api}) => {
+    const {data} = await api.post<Film>(`/favorite/${filmId}/${status ? 1 : 0}`);
+    return data;
+  },
 );

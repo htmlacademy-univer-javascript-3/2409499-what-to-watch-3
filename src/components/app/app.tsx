@@ -9,18 +9,20 @@ import PageNotFound from '../../pages/page-not-found/page-not-found';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import Spinner from '../spinner/spinner';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
-import { selectIsLoading } from '../../store/data-process/data-process.selectors';
+import { useEffect } from 'react';
+import { fetchFavoriteFilms } from '../../store/api-actions';
 
 function App(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
-  const isLoading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
 
-  if (authStatus === AuthorizationStatus.Unknown || isLoading) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [authStatus, dispatch]);
 
   return (
     <HelmetProvider>

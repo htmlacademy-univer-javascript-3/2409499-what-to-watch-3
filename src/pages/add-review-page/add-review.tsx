@@ -8,21 +8,29 @@ import { useEffect } from 'react';
 import { fetchFilmByID } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
 import { selectFilm } from '../../store/film-process/film-process.selectors';
+import { selectIsLoading } from '../../store/data-process/data-process.selectors';
+import Spinner from '../../components/spinner/spinner';
+import Logo from '../../components/logo/logo';
 
 function AddReview(): JSX.Element {
-  const {id} = useParams();
+  const id = Number(useParams().id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchFilmByID(id));
+      dispatch(fetchFilmByID(id.toString()));
     }
   }, [dispatch, id]);
 
   const film = useAppSelector(selectFilm);
+  const isLoading = useAppSelector(selectIsLoading);
 
   if (!film) {
     return <PageNotFound />;
+  }
+
+  if (isLoading) {
+    return <Spinner />;
   }
 
   return (
@@ -39,13 +47,7 @@ function AddReview(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header">
-            <div className="logo">
-              <Link to={AppRoute.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo />
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
@@ -53,7 +55,7 @@ function AddReview(): JSX.Element {
                   <Link to={AppRoute.Film} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link">Add review</a>
+                  <Link to="review" className="breadcrumbs__link">Add review</Link>
                 </li>
               </ul>
             </nav>
@@ -67,7 +69,7 @@ function AddReview(): JSX.Element {
         </div>
 
         <div className="add-review">
-          <AddReviewForm filmId={film.id}/>
+          <AddReviewForm filmId={id.toString()}/>
         </div>
 
       </section>

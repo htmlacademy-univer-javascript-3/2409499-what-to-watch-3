@@ -1,14 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import { selectFilms } from '../../store/data-process/data-process.selectors';
+import { selectFavoriteFilms } from '../../store/data-process/data-process.selectors';
+import Logo from '../../components/logo/logo';
+import { useEffect } from 'react';
+import { fetchFavoriteFilms } from '../../store/api-actions';
 
 function MyList(): JSX.Element {
-  const films = useAppSelector(selectFilms);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteFilms());
+  }, [dispatch]);
+
+  const favoriteFilms = useAppSelector(selectFavoriteFilms);
+  
   return (
     <>
       <Helmet>
@@ -16,21 +24,14 @@ function MyList(): JSX.Element {
       </Helmet>
       <div className="user-page">
         <header className="page-header user-page__head">
-          <div className="logo">
-            <Link to={AppRoute.Main} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+          <Logo />
+          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{}</span></h1>
           <Header />
         </header>
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <FilmsList films={films}/>
+          <FilmsList films={favoriteFilms}/>
         </section>
 
         <Footer />

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import { Tabs } from '../../components/tabs/tabs';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
@@ -11,6 +11,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { selectComments, selectFilm, selectSimilarFilms } from '../../store/film-process/film-process.selectors';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
+import Logo from '../../components/logo/logo';
 
 function MoviePage(): JSX.Element {
   const {id} = useParams();
@@ -53,14 +54,7 @@ function MoviePage(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoute.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
+            <Logo />
             <Header />
           </header>
 

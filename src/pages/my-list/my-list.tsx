@@ -16,7 +16,6 @@ function MyList(): JSX.Element {
   }, [dispatch]);
 
   const favoriteFilms = useAppSelector(selectFavoriteFilms);
-  
   return (
     <>
       <Helmet>

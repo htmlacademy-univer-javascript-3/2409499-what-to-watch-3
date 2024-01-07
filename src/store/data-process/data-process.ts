@@ -51,9 +51,8 @@ export const dataProcess = createSlice({
         if (state.promo && action.payload.id === state.promo.id) {
           state.promo = action.payload;
         }
-        
         state.favoriteFilmsCount += action.payload.isFavorite ? 1 : -1;
-      })
+      });
   },
 });
 

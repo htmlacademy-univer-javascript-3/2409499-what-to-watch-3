@@ -14,12 +14,10 @@ function Player(): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(true);
   const [playedTime, setPlayedTime] = useState(0);
 
-  if (!id) {
-    return <PageNotFound />;
-  }
-
   useEffect(() => {
-    dispatch(fetchFilmByID(id));
+    if (id) {
+      dispatch(fetchFilmByID(id));
+    }
   }, [id, dispatch]);
 
   const film = useAppSelector(selectFilm);
@@ -31,7 +29,7 @@ function Player(): JSX.Element {
   if (playerRef && playerRef.current) {
     playerRef.current.ontimeupdate = () => {
       setPlayedTime(playerRef.current.currentTime);
-    }
+    };
   }
 
   const getTimeLeft = useCallback(() => {
@@ -44,17 +42,27 @@ function Player(): JSX.Element {
     const minutes = Math.floor((timeLeft / 60) % 60).toString().padStart(2, '0');
     const seconds = Math.floor((timeLeft % 60)).toString().padStart(2, '0');
     return (hours !== '00') ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
-  }, []);
+  }, [film, playedTime]);
 
   const handleFullScreen = () => {
-    document.fullscreenElement ? document.exitFullscreen() : playerScreenRef.current.requestFullscreen();
-  }
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      playerScreenRef.current.requestFullscreen();
+    }
+  };
+
+  const handlePlay = () => {
+    if (isPlaying) {
+      playerRef.current.play();
+    }
+  };
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  if (!film) {
+  if (!film || !id) {
     return <PageNotFound />;
   }
 
@@ -65,7 +73,9 @@ function Player(): JSX.Element {
       </Helmet>
       <div className="player" ref={playerScreenRef}>
         <video src={film.videoLink} className="player__video" poster={film.posterImage} ref={playerRef}
-          onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} autoPlay></video>
+          onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} autoPlay
+        >
+        </video>
 
         <Link to={`/films/${id}`} className="player__exit">Exit</Link>
 
@@ -88,7 +98,7 @@ function Player(): JSX.Element {
                   <span>Pause</span>
                 </button>
               ) : (
-                <button type="button" className="player__play" onClick={() => playerRef.current.play()}>
+                <button type="button" className="player__play" onClick={handlePlay}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

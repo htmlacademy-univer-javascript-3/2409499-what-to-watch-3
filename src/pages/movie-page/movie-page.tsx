@@ -16,7 +16,7 @@ import PlayButton from '../../components/play-button/play-button';
 import AddToMyListButton from '../../components/add-to-my-list-button/add-to-my-list-button';
 
 function MoviePage(): JSX.Element {
-  const id = useParams().id; // Fix this
+  const id = useParams().id;
   const dispatch = useAppDispatch();
 
   useEffect(() => {

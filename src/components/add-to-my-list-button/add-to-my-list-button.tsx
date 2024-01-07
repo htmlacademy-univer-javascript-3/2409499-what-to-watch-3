@@ -15,12 +15,12 @@ function AddToMyListButton({ filmId, isFavorite }: AddToMyListButtonProps): JSX.
   const handleSetFavorite = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     dispatch(setFavorite({status: !isFavorite, filmId: filmId.toString()}));
-  }
+  };
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={handleSetFavorite}>
       <svg viewBox="0 0 19 20" width="19" height="20">
-        <use xlinkHref={isFavorite ? '#in-list': '#add'}></use>
+        <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
       </svg>
       <span>My list</span>
       <span className="film-card__count">{favoriteFilmsCount}</span>

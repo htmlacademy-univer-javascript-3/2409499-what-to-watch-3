@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import Header from '../../components/header/header';
+import Header from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import { selectFavoriteFilms } from '../../store/data-process/data-process.selectors';
 import Logo from '../../components/logo/logo';

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useEffect } from 'react';
 import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
-import Header from '../../components/header/header';
+import Header from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import { selectComments, selectFilm, selectSimilarFilms } from '../../store/film-process/film-process.selectors';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';

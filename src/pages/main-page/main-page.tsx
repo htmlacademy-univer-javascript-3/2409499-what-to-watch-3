@@ -4,7 +4,7 @@ import GenreList from '../../components/genre-list/genre-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import Header from '../../components/header/header';
+import Header from '../../components/user-block/user-block';
 import Footer from '../../components/footer/footer';
 import { selectFilms, selectGenre, selectPromo } from '../../store/data-process/data-process.selectors';
 import { Film } from '../../types/types';

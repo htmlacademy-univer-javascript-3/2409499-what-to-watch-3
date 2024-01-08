@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { FormEvent, useRef } from 'react';
-import { loginPost } from '../../store/api-actions';
+import { login } from '../../store/api-actions';
 import { AuthData } from '../../types/types';
 import Footer from '../../components/footer/footer';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
@@ -16,7 +16,7 @@ function SignIn(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {
-    dispatch(loginPost(authData));
+    dispatch(login(authData));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

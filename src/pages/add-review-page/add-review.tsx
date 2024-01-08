@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AddReviewForm } from '../../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import Header from '../../components/header/header';
+import Header from '../../components/user-block/user-block';
 import { useEffect } from 'react';
 import { fetchFilmByID } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';

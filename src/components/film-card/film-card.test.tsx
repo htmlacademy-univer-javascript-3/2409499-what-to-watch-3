@@ -14,9 +14,7 @@ describe('Component: Film card', () => {
   });
 
   it('should render correctly', () => {
-    const withHistoryComponent = withHistory(<FilmCard film={film} isHovered={false}
-      onMouseEnter={() => 0} onMouseLeave={() => 0}
-    />, mockHistory);
+    const withHistoryComponent = withHistory(<FilmCard film={film} isHovered={false} onMouseEnter={() => 0} onMouseLeave={() => 0}/>, mockHistory);
 
     render(withHistoryComponent);
 
@@ -24,9 +22,7 @@ describe('Component: Film card', () => {
   });
 
   it('should handle click correctly', async () => {
-    const withHistoryComponent = withHistory(<FilmCard film={film} isHovered={false}
-      onMouseEnter={() => 0} onMouseLeave={() => 0}
-    />, mockHistory);
+    const withHistoryComponent = withHistory(<FilmCard film={film} isHovered={false} onMouseEnter={() => 0} onMouseLeave={() => 0}/>, mockHistory);
 
     render(withHistoryComponent);
 

@@ -15,9 +15,9 @@ function UserBlock(): JSX.Element {
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-            <Link to='/mylist'>
-              <img src={user !== null ? user.avatarUrl : '/#'} alt="User avatar" width="63" height="63" data-testid="avatar"/>
-            </Link>
+              <Link to='/mylist'>
+                <img src={user !== null ? user.avatarUrl : '/#'} alt="User avatar" width="63" height="63" data-testid="avatar" />
+              </Link>
             </div>
           </li>
           <li className="user-block__item">

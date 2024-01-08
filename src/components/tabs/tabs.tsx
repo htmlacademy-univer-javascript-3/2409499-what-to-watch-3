@@ -27,13 +27,13 @@ export function Tabs({ reviews, film }: TabsProps): JSX.Element {
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li className={`film-nav__item ${activeTab === 'Overview' ? 'film-nav__item--active' : ''}`}>
-            <a onClick={() => setActiveTab('Overview')} className="film-nav__link">Overview</a>
+            <button onClick={() => setActiveTab('Overview')} className="film-nav__link" type="button">Overview</button>
           </li>
           <li className={`film-nav__item ${activeTab === 'Details' ? 'film-nav__item--active' : ''}`}>
-            <a onClick={() => setActiveTab('Details')} className="film-nav__link">Details</a>
+            <button onClick={() => setActiveTab('Details')} className="film-nav__link" type="button">Details</button>
           </li>
           <li className={`film-nav__item ${activeTab === 'Reviews' ? 'film-nav__item--active' : ''}`}>
-            <a onClick={() => setActiveTab('Reviews')} className="film-nav__link">Reviews</a>
+            <button onClick={() => setActiveTab('Reviews')} className="film-nav__link" type="button">Reviews</button>
           </li>
         </ul>
       </nav>

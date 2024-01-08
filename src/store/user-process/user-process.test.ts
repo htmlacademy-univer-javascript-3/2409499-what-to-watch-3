@@ -4,7 +4,7 @@ import { userProcess } from './user-process';
 import { checkAuth, login, logout } from '../api-actions';
 import { ErrorDetails, UserAuth } from '../../types/types';
 
-const user: UserAuth = {
+export const user: UserAuth = {
   name: 'Aba',
   avatarUrl: 'url',
   email: 'hog@da.ru',

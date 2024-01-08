@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { StarForReview } from '../star-for-review/star-for-review';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { useAppDispatch } from '../../hooks/hooks';
 import { commentPost } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
@@ -8,39 +7,65 @@ export type AddReviewFormProps = {
   filmId: string;
 };
 
+const MAX_LEN_REVIEW = 400;
+const MIN_LEN_REVIEW = 50;
+
+const ratings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
 export function AddReviewForm({ filmId }: AddReviewFormProps): JSX.Element {
-  const [reviewState, setReviewState] = useState({ rating: 0, comment: '' });
+  const [review, setReview] = useState('');
+  const [rating, setRating] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const textChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => setReview(event.target.value);
+  const ratingChangeHandler = (event: ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
+
+  const postEventHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(commentPost({ filmId: filmId, commentRequest: { rating: rating, comment: review } }))
+      .unwrap()
+      .then(() => {
+        setIsDisabled(false);
+        navigate(`/films/${filmId}`);
+      })
+      .finally(() => {
+        setIsDisabled(false);
+      });
+  };
+
   return (
-    <form action="#" className="add-review__form">
+    <form action="#" className="add-review__form" onSubmit={postEventHandler}>
       <div className="rating">
         <div className="rating__stars">
-          <StarForReview score='10' />
-          <StarForReview score='9' />
-          <StarForReview score='8' />
-          <StarForReview score='7' />
-          <StarForReview score='6' />
-          <StarForReview score='5' />
-          <StarForReview score='4' />
-          <StarForReview score='3' />
-          <StarForReview score='2' />
-          <StarForReview score='1' />
+          {ratings.map((num) => (
+            <Fragment key={num}>
+              <input
+                className="rating__input"
+                id={`star-${num}`}
+                type="radio"
+                name="rating"
+                value={num}
+                onChange={ratingChangeHandler}
+              />
+              <label className="rating__label" htmlFor={`star-${num}`}>
+                Rating {num}
+              </label>
+            </Fragment>)
+          )}
         </div>
       </div>
 
       <div className="add-review__text">
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
-          value={reviewState.comment}
-          onChange={(evt) => setReviewState({ ...reviewState, comment: evt.target.value })}
+          value={review}
+          onChange={textChangeHandler}
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="button" onClick={() => {
-            dispatch(commentPost({ filmId, commentRequest: reviewState }));
-            navigate(`/films/${filmId}`);
-          }}
+          <button className="add-review__btn" type="submit"
+            disabled={review.length < MIN_LEN_REVIEW || review.length > MAX_LEN_REVIEW || isDisabled || rating === 0}
           >
             Post
           </button>

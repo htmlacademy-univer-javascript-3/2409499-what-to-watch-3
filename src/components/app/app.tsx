@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
@@ -26,46 +26,44 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainPage />}
-          />
-          <Route
-            path={AppRoute.SignIn}
-            element={<SignIn />}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute>
-                <MyList />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Film}
-            element={<MoviePage />}
-          />
-          <Route
-            path={AppRoute.AddReview}
-            element={
-              <PrivateRoute>
-                <AddReview />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Player}
-            element={<Player />}
-          />
-          <Route
-            path='*'
-            element={<PageNotFound />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage />}
+        />
+        <Route
+          path={AppRoute.SignIn}
+          element={<SignIn />}
+        />
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute authStatus={authStatus}>
+              <MyList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<MoviePage />}
+        />
+        <Route
+          path={AppRoute.AddReview}
+          element={
+            <PrivateRoute authStatus={authStatus}>
+              <AddReview />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Player}
+          element={<Player />}
+        />
+        <Route
+          path='*'
+          element={<PageNotFound />}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }

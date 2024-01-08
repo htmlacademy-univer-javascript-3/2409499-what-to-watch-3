@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { AddReviewForm } from '../../components/add-review-form/add-review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import Header from '../../components/user-block/user-block';
+import UserBlock from '../../components/user-block/user-block';
 import { useEffect } from 'react';
 import { fetchFilmByID } from '../../store/api-actions';
 import PageNotFound from '../page-not-found/page-not-found';
@@ -13,19 +13,19 @@ import Spinner from '../../components/spinner/spinner';
 import Logo from '../../components/logo/logo';
 
 function AddReview(): JSX.Element {
-  const id = Number(useParams().id);
+  const id = useParams().id;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchFilmByID(id.toString()));
+      dispatch(fetchFilmByID(id));
     }
   }, [dispatch, id]);
 
   const film = useAppSelector(selectFilm);
   const isLoading = useAppSelector(selectIsLoading);
 
-  if (!film) {
+  if (!film || !id) {
     return <PageNotFound />;
   }
 
@@ -60,7 +60,7 @@ function AddReview(): JSX.Element {
               </ul>
             </nav>
 
-            <Header />
+            <UserBlock />
           </header>
 
           <div className="film-card__poster film-card__poster--small">
@@ -69,7 +69,7 @@ function AddReview(): JSX.Element {
         </div>
 
         <div className="add-review">
-          <AddReviewForm filmId={id.toString()}/>
+          <AddReviewForm filmId={id}/>
         </div>
 
       </section>

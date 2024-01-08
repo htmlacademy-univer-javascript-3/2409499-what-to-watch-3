@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { removeToken } from '../../services/token';
 import { selectAuthStatus, selectUser } from '../../store/user-process/user-process.selectors';
 import { logout } from '../../store/api-actions';
 
-function Header(): JSX.Element {
+function UserBlock(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -16,20 +15,22 @@ function Header(): JSX.Element {
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src={user?.avatarUrl} alt="User avatar" width="63" height="63" />
+              <Link to='/mylist'>
+                <img src={user !== null ? user.avatarUrl : '/#'} alt="User avatar" width="63" height="63" data-testid="avatar" />
+              </Link>
             </div>
           </li>
           <li className="user-block__item">
-            <button
+            <Link
               className="user-block__link"
+              to={AppRoute.SignIn}
               style={{ background: 'transparent', border: 'none' }}
               onClick={() => {
-                removeToken();
                 dispatch(logout());
               }}
             >
               Sign out
-            </button>
+            </Link>
           </li>
         </>
       ) : (
@@ -42,4 +43,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default UserBlock;

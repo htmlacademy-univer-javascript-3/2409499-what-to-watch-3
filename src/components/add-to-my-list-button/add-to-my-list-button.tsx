@@ -19,7 +19,7 @@ function AddToMyListButton({ filmId, isFavorite }: AddToMyListButtonProps): JSX.
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={handleSetFavorite}>
-      <svg viewBox="0 0 19 20" width="19" height="20">
+      <svg viewBox="0 0 19 20" width="19" height="20" data-testid={isFavorite ? 'in-list' : 'add'}>
         <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
       </svg>
       <span>My list</span>

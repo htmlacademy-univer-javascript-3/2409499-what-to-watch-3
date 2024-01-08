@@ -9,7 +9,7 @@ import { checkAuth, commentPost, fetchComments, fetchFavoriteFilms, fetchFilmByI
 import { films } from './data-process/data-process.test';
 import { comments, film, similarFilms } from './film-process/film-process.test';
 
-type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);
 
 

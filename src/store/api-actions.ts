@@ -5,7 +5,7 @@ import { State } from '../types/state';
 import { Film, UserAuth, Comment, AuthData, ErrorDetails, User } from '../types/types';
 import { removeToken, setToken } from '../services/token';
 
-export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
+export const fetchFilms = createAsyncThunk<Film[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -29,13 +29,13 @@ export const fetchFilmByID = createAsyncThunk<Film, string, {
   },
 );
 
-export const loginGet = createAsyncThunk<UserAuth, undefined, {
+export const checkAuth = createAsyncThunk<UserAuth, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
   rejectValue: ErrorDetails | undefined;
 }>(
-  'loginGet',
+  'checkAuth',
   async (_arg, {extra: api, rejectWithValue}) => {
     try {
       const {data} = await api.get<UserAuth>('/login');
@@ -47,13 +47,13 @@ export const loginGet = createAsyncThunk<UserAuth, undefined, {
   }
 );
 
-export const loginPost = createAsyncThunk<User, AuthData, {
+export const login = createAsyncThunk<User, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
   rejectValue: ErrorDetails | undefined;
 }>(
-  'loginPost',
+  'login',
   async (info, {extra: api, rejectWithValue}) => {
     try {
       const {data} = await api.post<UserAuth>('/login', info);
@@ -142,7 +142,7 @@ export const setFavorite = createAsyncThunk<Film, {status: boolean; filmId: stri
   state: State;
   extra: AxiosInstance;
 }>(
-  '/favorite/id/status',
+  'setFavorite',
   async ({status, filmId}, {extra: api}) => {
     const {data} = await api.post<Film>(`/favorite/${filmId}/${status ? 1 : 0}`);
     return data;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DataProcess } from '../../types/state';
 import { NameSpace } from '../../const';
-import { fetchFavoriteFilms, fetchFilmsAction, fetchPromo, setFavorite } from '../api-actions';
+import { fetchFavoriteFilms, fetchFilms, fetchPromo, setFavorite } from '../api-actions';
 
 const initialState: DataProcess = {
   films: [],
@@ -23,11 +23,11 @@ export const dataProcess = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchFilmsAction.pending, (state) => {
+      .addCase(fetchFilms.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+      .addCase(fetchFilms.fulfilled, (state, action) => {
         state.films = action.payload;
         state.isLoading = false;
       })
@@ -42,10 +42,13 @@ export const dataProcess = createSlice({
       .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
         state.favoriteFilms = action.payload;
         state.favoriteFilmsCount = action.payload.length;
+        state.isLoading = false;
       })
-      .addCase(fetchFavoriteFilms.rejected, (state) => {
+      .addCase(fetchFavoriteFilms.rejected, (state, action) => {
         state.favoriteFilms = [];
         state.favoriteFilmsCount = 0;
+        state.isLoading = false;
+        state.error = action.error;
       })
       .addCase(setFavorite.fulfilled, (state, action) => {
         if (state.promo && action.payload.id === state.promo.id) {

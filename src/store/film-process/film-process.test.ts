@@ -3,7 +3,7 @@ import { filmProcess } from './film-process';
 import { fetchComments, fetchFilmByID, fetchSimilarFilms } from '../api-actions';
 import { Comment, Film } from '../../types/types';
 
-const film: Film = {
+export const film: Film = {
   id: '0',
   name: 'The Grand Budapest Hotel',
   previewImage: 'img/bg-the-grand-budapest-hotel.jpg',
@@ -27,7 +27,7 @@ const film: Film = {
   isFavorite: false,
 };
 
-const similarFilms: Film[] = [
+export const similarFilms: Film[] = [
   {
     id: '1',
     name: 'Film 1',
@@ -75,7 +75,7 @@ const similarFilms: Film[] = [
   }
 ];
 
-const comments: Comment[] = [{
+export const comments: Comment[] = [{
   id: '0',
   comment: 'comment 1',
   user: 'user 1',

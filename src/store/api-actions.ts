@@ -114,7 +114,7 @@ export const fetchSimilarFilms = createAsyncThunk<Film[], string, {
   }
 );
 
-export const commentPost = createAsyncThunk<void, {filmId: string; commentRequest:{comment: string; rating: number}}, {
+export const commentPost = createAsyncThunk<void, {filmId: string; commentRequest: {comment: string; rating: number}}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

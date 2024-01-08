@@ -3,7 +3,7 @@ import { changeGenre, dataProcess } from './data-process';
 import { fetchFavoriteFilms, fetchFilms, fetchPromo, setFavorite } from '../api-actions';
 import { Film } from '../../types/types';
 
-const films: Film[] = [
+export const films: Film[] = [
   {
     id: '0',
     name: 'The Grand Budapest Hotel',

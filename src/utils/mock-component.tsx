@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import { Action } from 'redux';
 import { AppThunkDispatch } from '../store/api-actions.test';
 import { AuthorizationStatus, NameSpace } from '../const';
+import { film } from '../store/film-process/film-process.test';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
@@ -61,7 +62,7 @@ export const makeMockStore = (initialState?: Partial<State>): State => ({
   },
   [NameSpace.Data]: {
     films: [],
-    promo: null,
+    promo: film,
     genre: 'All genres',
     isLoading: false,
     error: null,

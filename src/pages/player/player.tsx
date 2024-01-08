@@ -71,7 +71,7 @@ function Player(): JSX.Element {
       <Helmet>
         <title>Плеер</title>
       </Helmet>
-      <div className="player" ref={playerScreenRef}>
+      <div className="player" ref={playerScreenRef} data-testid="player">
         <video src={film.videoLink} className="player__video" poster={film.posterImage} ref={playerRef}
           onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} autoPlay
         >

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import HistoryRouter from './components/history-router/history-router';
 import { createBrowserHistory } from 'history';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

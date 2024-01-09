@@ -97,7 +97,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmsList films={similarFilms} />
+            <FilmsList films={similarFilms.slice(0, 4)} />
           </div>
         </section>
 

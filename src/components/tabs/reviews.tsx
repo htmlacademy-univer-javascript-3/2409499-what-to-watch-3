@@ -4,6 +4,10 @@ type ReviewCardProps = {
   reviewDetails: Comment;
 };
 
+function getDateString(date: Date) {
+  return `${date.toLocaleString('eng', {month: 'long'})} ${date.getDate()}, ${date.getFullYear()}`;
+}
+
 function ReviewCard({ reviewDetails }: ReviewCardProps): JSX.Element {
   return (
     <div className="review">
@@ -12,7 +16,7 @@ function ReviewCard({ reviewDetails }: ReviewCardProps): JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{reviewDetails.user}</cite>
-          <time className="review__date" dateTime="2016-12-24">{reviewDetails.date}</time>
+          <time className="review__date" dateTime={reviewDetails.date}>{getDateString(new Date(reviewDetails.date))}</time>
         </footer>
       </blockquote>
 

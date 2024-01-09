@@ -25,7 +25,7 @@ function AddReview(): JSX.Element {
   const film = useAppSelector(selectFilm);
   const isLoading = useAppSelector(selectIsLoading);
 
-  if (!film || !id) {
+  if (!film) {
     return <PageNotFound />;
   }
 
@@ -69,7 +69,7 @@ function AddReview(): JSX.Element {
         </div>
 
         <div className="add-review">
-          <AddReviewForm filmId={id}/>
+          <AddReviewForm filmId={film.id}/>
         </div>
 
       </section>

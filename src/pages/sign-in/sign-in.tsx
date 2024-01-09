@@ -2,11 +2,18 @@ import { Helmet } from 'react-helmet-async';
 import { Link, Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { login } from '../../store/api-actions';
 import { AuthData } from '../../types/types';
 import Footer from '../../components/footer/footer';
 import { selectAuthStatus } from '../../store/user-process/user-process.selectors';
+
+const validPassword = /^(?=.*[a-zA-Z])(?=.*\d)/;
+const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+const checkEmail = (email: string) => email.match(validEmail);
+
+const checkPassword = (password: string) => password.match(validPassword);
 
 function SignIn(): JSX.Element {
   const authStatus = useAppSelector(selectAuthStatus);
@@ -14,6 +21,8 @@ function SignIn(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = (authData: AuthData) => {
     dispatch(login(authData));
@@ -23,10 +32,15 @@ function SignIn(): JSX.Element {
     event.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        email: loginRef.current.value,
-        password: passwordRef.current.value
-      });
+      if (checkEmail(loginRef.current.value) && checkPassword(passwordRef.current.value)) {
+        setErrorMessage('');
+        onSubmit({
+          email: loginRef.current.value,
+          password: passwordRef.current.value
+        });
+      } else {
+        setErrorMessage('Email or password is invalid. Password should contain at least 1 letter and 1 number');
+      }
     }
   };
 
@@ -51,7 +65,12 @@ function SignIn(): JSX.Element {
           </header>
 
           <div className="sign-in user-page__content">
-            <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+            <form action="#" className="sign-in__form" onSubmit={handleSubmit} data-testid="form">
+              {errorMessage ? (
+                <div className="sign-in__message">
+                  <p>{errorMessage}</p>
+                </div>
+              ) : null}
               <div className="sign-in__fields">
                 <div className="sign-in__field">
                   <input className="sign-in__input" ref={loginRef} type="email" placeholder="Email address"

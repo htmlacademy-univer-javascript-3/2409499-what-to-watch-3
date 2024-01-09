@@ -62,7 +62,7 @@ function Player(): JSX.Element {
     return <Spinner />;
   }
 
-  if (!film || !id) {
+  if (!film) {
     return <PageNotFound />;
   }
 
@@ -77,7 +77,7 @@ function Player(): JSX.Element {
         >
         </video>
 
-        <Link to={`/films/${id}`} className="player__exit">Exit</Link>
+        <Link to={`/films/${film.id}`} className="player__exit">Exit</Link>
 
         <div className="player__controls">
           <div className="player__controls-row">

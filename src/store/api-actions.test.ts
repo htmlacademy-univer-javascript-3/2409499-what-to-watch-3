@@ -10,7 +10,7 @@ import { films } from './data-process/data-process.test';
 import { comments, film, similarFilms } from './film-process/film-process.test';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
-const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({type}) => type);
 
 
 describe('Async actions', () => {

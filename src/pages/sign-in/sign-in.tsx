@@ -51,7 +51,7 @@ function SignIn(): JSX.Element {
           </header>
 
           <div className="sign-in user-page__content">
-            <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+            <form action="#" className="sign-in__form" onSubmit={handleSubmit} data-testid="form">
               <div className="sign-in__fields">
                 <div className="sign-in__field">
                   <input className="sign-in__input" ref={loginRef} type="email" placeholder="Email address"

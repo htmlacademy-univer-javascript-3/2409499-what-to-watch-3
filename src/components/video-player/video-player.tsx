@@ -16,7 +16,7 @@ export function VideoPlayer({ autoPlay, src, muted, poster, width, height }: Vid
       poster={poster}
       width={width}
       height={height}
-      data-testid="player"
+      data-testid="video-player"
     >
     </video>
   );

@@ -10,7 +10,7 @@ export const fetchFilms = createAsyncThunk<Film[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchFilms',
+  'film/fetchFilms',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Film[]>('/films');
     return data;
@@ -22,7 +22,7 @@ export const fetchFilmByID = createAsyncThunk<Film, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchFilmByID',
+  'film/fetchFilmByID',
   async (id: string, {extra: api}) => {
     const {data} = await api.get<Film>(`/films/${id}`);
     return data;
@@ -35,7 +35,7 @@ export const checkAuth = createAsyncThunk<UserAuth, undefined, {
   extra: AxiosInstance;
   rejectValue: ErrorDetails | undefined;
 }>(
-  'checkAuth',
+  'user/checkAuth',
   async (_arg, {extra: api, rejectWithValue}) => {
     try {
       const {data} = await api.get<UserAuth>('/login');
@@ -53,7 +53,7 @@ export const login = createAsyncThunk<User, AuthData, {
   extra: AxiosInstance;
   rejectValue: ErrorDetails | undefined;
 }>(
-  'login',
+  'user/login',
   async (info, {extra: api, rejectWithValue}) => {
     try {
       const {data} = await api.post<UserAuth>('/login', info);
@@ -71,7 +71,7 @@ export const logout = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'logout',
+  'user/logout',
   async (_arg, {extra: api}) => {
     await api.delete('/logout');
     removeToken();
@@ -83,7 +83,7 @@ export const fetchPromo = createAsyncThunk<Film, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchPromo',
+  'film/fetchPromo',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Film>('/promo');
     return data;
@@ -95,7 +95,7 @@ export const fetchComments = createAsyncThunk<Comment[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchComments',
+  'film/fetchComments',
   async (id, {extra: api}) => {
     const {data} = await api.get<Comment[]>(`/comments/${id}`);
     return data;
@@ -107,7 +107,7 @@ export const fetchSimilarFilms = createAsyncThunk<Film[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchSimilarFilms',
+  'film/fetchSimilarFilms',
   async (id, {extra: api}) => {
     const {data} = await api.get<Film[]>(`/films/${id}/similar`);
     return data;
@@ -119,7 +119,7 @@ export const commentPost = createAsyncThunk<void, {filmId: string; commentReques
   state: State;
   extra: AxiosInstance;
 }>(
-  'commentPost',
+  'film/commentPost',
   async ({filmId, commentRequest}, {extra: api}) => {
     await api.post(`/comments/${filmId}`, commentRequest);
   }
@@ -130,7 +130,7 @@ export const fetchFavoriteFilms = createAsyncThunk<Film[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchFavoriteFilms',
+  'film/fetchFavoriteFilms',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Film[]>('/favorite');
     return data;
@@ -142,7 +142,7 @@ export const setFavorite = createAsyncThunk<Film, {status: boolean; filmId: stri
   state: State;
   extra: AxiosInstance;
 }>(
-  'setFavorite',
+  'film/setFavorite',
   async ({status, filmId}, {extra: api}) => {
     const {data} = await api.post<Film>(`/favorite/${filmId}/${status ? 1 : 0}`);
     return data;

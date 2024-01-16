@@ -53,7 +53,7 @@ function Player(): JSX.Element {
   };
 
   const handlePlay = () => {
-    if (isPlaying) {
+    if (!isPlaying) {
       playerRef.current.play();
     }
   };
@@ -107,7 +107,7 @@ function Player(): JSX.Element {
               )
             }
 
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{film.name}</div>
 
             <button type="button" className="player__full-screen" onClick={handleFullScreen}>
               <svg viewBox="0 0 27 27" width="27" height="27">

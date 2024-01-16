@@ -24,11 +24,15 @@ function FilmCard({ film, onMouseEnter, onMouseLeave, isHovered }: FilmProps): J
 
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className="small-film-card__image">
-        {active ?
-          <VideoPlayer src={film.previewVideoLink} poster={film.posterImage} muted autoPlay width={280} height={175} /> :
-          <img src={film.previewImage} width="280" height="175" alt={film.name} />}
-      </div>
+      <Link to={`/films/${film.id}`}>
+        <div className="small-film-card__image">
+          {
+            active
+              ? <VideoPlayer src={film.previewVideoLink} poster={film.posterImage} muted autoPlay width="280" height="175" />
+              : <img src={film.previewImage} width="280" height="175" alt={film.name} />
+          }
+        </div>
+      </Link>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`/films/${film.id}`}>{film.name}</Link>
       </h3>

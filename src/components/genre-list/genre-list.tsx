@@ -8,7 +8,7 @@ function GenreList(): JSX.Element {
   const dispatch = useDispatch();
   const films = useAppSelector(selectFilms);
 
-  const genres = useMemo(() => ['All genres'].concat(Array.from(new Set(films.map((film) => film.genre)))), [films]);
+  const genres = useMemo(() => ['All genres'].concat(Array.from(new Set(films.map((film) => film.genre))).slice(0, 9)), [films]);
   const activeGenre = useAppSelector(selectGenre);
 
   return (

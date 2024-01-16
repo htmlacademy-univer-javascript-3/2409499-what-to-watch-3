@@ -45,7 +45,7 @@ function MoviePage(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>Фильм</title>
+        <title>{film.name}</title>
       </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">

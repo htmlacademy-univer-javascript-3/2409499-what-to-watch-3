@@ -27,7 +27,7 @@ describe('Component: Film card', () => {
     render(withHistoryComponent);
 
     await userEvent.click(
-      screen.getByRole('link')
+      screen.getAllByRole('link')[0]
     );
     expect(mockHistory.location.pathname).toBe('/films/0');
   });

@@ -3,8 +3,8 @@ type VideoPlayerProps = {
   src: string;
   muted?: boolean;
   poster: string;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
 };
 
 export function VideoPlayer({ autoPlay, src, muted, poster, width, height }: VideoPlayerProps): JSX.Element {

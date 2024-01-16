@@ -21,12 +21,14 @@ export function AddReviewForm({ filmId }: AddReviewFormProps): JSX.Element {
   const navigate = useNavigate();
 
   const textChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    if (!isDisabled) {
-      if (event.target.value.length < 50 || event.target.value.length > 400) {
-        setErrorMessage('Comment should contain from 50 to 400 characters');
-      } else {
-        setErrorMessage('');
-      }
+    if (isDisabled) {
+      return;
+    }
+
+    if (event.target.value.length < 50 || event.target.value.length > 400) {
+      setErrorMessage('Comment should contain from 50 to 400 characters');
+    } else {
+      setErrorMessage('');
     }
     setReview(event.target.value);
   };
@@ -34,15 +36,17 @@ export function AddReviewForm({ filmId }: AddReviewFormProps): JSX.Element {
 
   const postEventHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(commentPost({ filmId: filmId, commentRequest: { rating: rating, comment: review } }))
-      .unwrap()
-      .then(() => {
-        setIsDisabled(false);
-        navigate(`/films/${filmId}`);
-      })
-      .finally(() => {
-        setIsDisabled(false);
-      });
+    if (rating > 0 && review.length >= 50 && review.length <= 400) {
+      setIsDisabled(true);
+      dispatch(commentPost({ filmId: filmId, commentRequest: { rating: rating, comment: review } }))
+        .unwrap()
+        .then(() => {
+          navigate(`/films/${filmId}`);
+        })
+        .finally(() => {
+          setIsDisabled(false);
+        });
+    }
   };
 
   return (
@@ -60,6 +64,7 @@ export function AddReviewForm({ filmId }: AddReviewFormProps): JSX.Element {
                   name="rating"
                   value={num}
                   onChange={ratingChangeHandler}
+                  disabled={isDisabled}
                 />
                 <label className="rating__label" htmlFor={`star-${num}`}>
                   Rating {num}
@@ -73,6 +78,7 @@ export function AddReviewForm({ filmId }: AddReviewFormProps): JSX.Element {
           <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
             value={review}
             onChange={textChangeHandler}
+            disabled={isDisabled}
           >
           </textarea>
           <div className="add-review__submit">
